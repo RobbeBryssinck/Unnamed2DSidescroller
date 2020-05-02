@@ -9,10 +9,12 @@ public class Controller2D : RaycastController
     public CollisionInfo collisions;
     [HideInInspector]
     public Vector2 playerInput;
+    Player player;
 
     public override void Start()
     {
         base.Start();
+        player = GetComponent<Player>();
     }
 
     // Ray casts prevent an object from going through other objects (aka collision handling)
@@ -56,6 +58,10 @@ public class Controller2D : RaycastController
 
             if (hit)
             {
+                if (hit.collider.tag == "Enemy")
+                {
+                    player.Die();
+                }
                 // fix movement bug when inside other object
                 if (hit.distance == 0)
                 {
@@ -113,9 +119,17 @@ public class Controller2D : RaycastController
 
             if (hit)
             {
-                if (hit.collider.tag == "DeathZone" && GetComponent<Player>())
+                if (hit.collider.tag == "DeathZone")
                 {
-                    GetComponent<Player>().Die();
+                    player.Die();
+                }
+                if (hit.collider.tag == "Enemy" && directionY == -1)
+                {
+                    Frog frog = hit.collider.GetComponent<Frog>();
+                    if (frog != null)
+                    {
+                        frog.TakeDamage(100);
+                    }
                 }
                 else
                 {
