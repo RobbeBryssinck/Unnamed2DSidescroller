@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     #region properties
 
+    public float health = 100;
     public float maxJumpHeight = 4;
     public float minJumpHeight = 0.5f;
     public float timeToMaxJumpHeight = .4f;
@@ -23,6 +24,7 @@ public class Player : MonoBehaviour
     float velocityXSmoothing;
 
     Controller2D controller;
+    Vector2 directionalInput;
 
     void Start()
     {
@@ -33,30 +35,55 @@ public class Player : MonoBehaviour
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
     }
 
+    public void SetDirectionalInput(Vector2 input)
+    {
+        directionalInput = input;
+    }
+
+    public void OnJumpInputDown()
+    {
+        velocity.y = maxJumpVelocity;
+    }
+
+    public void OnJumpInputUp()
+    {
+        if (velocity.y > minJumpVelocity) // prevents acceleration mid-air
+        {
+            velocity.y = minJumpVelocity;
+        }
+    }
+
     void Update()
     {
-        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        CalculateVelocity();
 
-        if (Input.GetKeyDown(KeyCode.Space) && controller.collisions.below)
-        {
-            velocity.y = maxJumpVelocity;
-        }
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            if (velocity.y > minJumpVelocity) // prevents acceleration mid-air
-            {
-                velocity.y = minJumpVelocity;
-            }
-        }
-
-        float targetVelocityX = input.x * moveSpeed;
-        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? maxVelocityTimeGround : maxVelocityTimeAir);
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime, input);
+        controller.Move(velocity * Time.deltaTime, directionalInput);
 
         if (controller.collisions.above || controller.collisions.below)
         {
             velocity.y = 0;
         }
+    }
+
+    void CalculateVelocity()
+    {
+        float targetVelocityX = directionalInput.x * moveSpeed;
+        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? maxVelocityTimeGround : maxVelocityTimeAir);
+        velocity.y += gravity * Time.deltaTime;
+    }
+
+    public void Die()
+    {
+        health = 0;
+        print(health);
+        Respawn();
+    }
+
+    void Respawn()
+    {
+        health = 100;
+        Vector3 spawnPoint = GameObject.Find("SpawnPoint").GetComponent<SpawnPoint>().spawnPoint;
+        transform.position = spawnPoint;
+        print(health);
     }
 }

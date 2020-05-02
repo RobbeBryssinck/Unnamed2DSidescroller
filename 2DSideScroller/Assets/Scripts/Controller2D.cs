@@ -17,7 +17,7 @@ public class Controller2D : RaycastController
     }
 
     // Ray casts prevent an object from going through other objects (aka collision handling)
-    public void Move(Vector3 moveDistance, bool standingOnPlatform = false)
+    public void Move(Vector2 moveDistance, bool standingOnPlatform = false)
     {
         Move(moveDistance, Vector2.zero, standingOnPlatform);
     }
@@ -50,10 +50,10 @@ public class Controller2D : RaycastController
         for (int i = 0; i < horizontalRayCount; i++)
         {
             Vector2 rayOrigin = (directionX == -1) ? raycastOrigins.bottomLeft : raycastOrigins.bottomRight;
-            rayOrigin += Vector2.up * (horizontalRaySpacing * i);
+            rayOrigin += Vector2.up * horizontalRaySpacing * i;
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask);
 
-            Debug.DrawRay(rayOrigin, Vector2.right * directionX * rayLength, Color.red);
+            Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
 
             if (hit)
             {
@@ -110,37 +110,44 @@ public class Controller2D : RaycastController
             rayOrigin += Vector2.right * (verticalRaySpacing * i + moveDistance.x);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
 
-            Debug.DrawRay(rayOrigin, Vector2.up * directionY * rayLength, Color.red);
+            Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
 
             if (hit)
             {
-                if (hit.collider.tag == "Through")
+                if (hit.collider.tag == "DeathZone" && GetComponent<Player>())
                 {
-                    if (directionY == 1 || hit.distance == 0)
-                        continue;
-                    if (collisions.fallingThroughPlatform)
-                    {
-                        continue;
-                    }
-                    if (playerInput.y == -1)
-                    {
-                        collisions.fallingThroughPlatform = true;
-                        Invoke("ResetFallingThroughPlatform", .5f);
-                        continue;
-                    }
+                    GetComponent<Player>().Die();
                 }
-
-                moveDistance.y = (hit.distance - skinWidth) * directionY;
-                rayLength = hit.distance;
-
-                // fixes bug where player stutters while climbing and pressing against ceiling
-                if (collisions.climbing)
+                else
                 {
-                    moveDistance.x = moveDistance.y / Mathf.Tan(collisions.angle * Mathf.Deg2Rad) * Mathf.Sign(moveDistance.x);
-                }
+                    if (hit.collider.tag == "Through")
+                    {
+                        if (directionY == 1 || hit.distance == 0)
+                            continue;
+                        if (collisions.fallingThroughPlatform)
+                        {
+                            continue;
+                        }
+                        if (playerInput.y == -1)
+                        {
+                            collisions.fallingThroughPlatform = true;
+                            Invoke("ResetFallingThroughPlatform", .5f);
+                            continue;
+                        }
+                    }
 
-                collisions.below = directionY == -1;
-                collisions.above = directionY == 1;
+                    moveDistance.y = (hit.distance - skinWidth) * directionY;
+                    rayLength = hit.distance;
+
+                    // fixes bug where player stutters while climbing and pressing against ceiling
+                    if (collisions.climbing)
+                    {
+                        moveDistance.x = moveDistance.y / Mathf.Tan(collisions.angle * Mathf.Deg2Rad) * Mathf.Sign(moveDistance.x);
+                    }
+
+                    collisions.below = directionY == -1;
+                    collisions.above = directionY == 1;
+                }
             }
         }
 
