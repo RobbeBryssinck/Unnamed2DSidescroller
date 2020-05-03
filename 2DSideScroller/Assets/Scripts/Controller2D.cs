@@ -125,10 +125,10 @@ public class Controller2D : RaycastController
                 }
                 if (hit.collider.tag == "Enemy" && directionY == -1)
                 {
-                    Frog frog = hit.collider.GetComponent<Frog>();
-                    if (frog != null)
+                    Enemy enemy = hit.collider.GetComponent<Frog>();
+                    if (enemy != null)
                     {
-                        frog.TakeDamage(100);
+                        enemy.TakeDamage(100);
                     }
                 }
                 else

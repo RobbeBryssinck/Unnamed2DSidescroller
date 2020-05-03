@@ -11,7 +11,7 @@ public class SpawnPoint : MonoBehaviour
     {
         spawnPoint = gameObject.transform.position;
 
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.green;
         float size = .3f;
 
         Vector3 spawnPointPos = spawnPoint + transform.position;
