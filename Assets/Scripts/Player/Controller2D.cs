@@ -127,7 +127,7 @@ public class Controller2D : RaycastController
                 }
                 if (hit.collider.tag == "Enemy" && directionY == -1)
                 {
-                    Enemy enemy = hit.collider.GetComponent<Frog>(); // GetComponent<Frog> is not modular
+                    Enemy enemy = hit.collider.GetComponent<Enemy>();
                     if (enemy != null)
                     {
                         enemy.TakeDamage(100);
