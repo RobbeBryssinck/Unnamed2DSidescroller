@@ -1,13 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Controller2D))]
 public class Player : MonoBehaviour
 {
     #region properties
 
-    public float health = 100;
+    public float health = 300;
     public float maxJumpHeight = 4;
     public float minJumpHeight = 0.5f;
     public float timeToMaxJumpHeight = .4f;
@@ -24,7 +26,9 @@ public class Player : MonoBehaviour
     float velocityXSmoothing;
 
     Controller2D controller;
+    SpawnPoint spawnPoint;
     Vector2 directionalInput;
+    PlayerUIController playerUIController;
 
     void Start()
     {
@@ -33,6 +37,10 @@ public class Player : MonoBehaviour
         gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToMaxJumpHeight, 2);
         maxJumpVelocity = (2 * maxJumpHeight) / timeToMaxJumpHeight;
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
+
+        spawnPoint = GameObject.Find("SpawnPoint").GetComponent<SpawnPoint>();
+        transform.position = spawnPoint.transform.position;
+        playerUIController = GameObject.Find("PlayerUI").GetComponent<PlayerUIController>();
     }
 
     public void SetDirectionalInput(Vector2 input)
@@ -87,20 +95,22 @@ public class Player : MonoBehaviour
         float targetVelocityX = directionalInput.x * moveSpeed;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? maxVelocityTimeGround : maxVelocityTimeAir);
         velocity.y += gravity * Time.deltaTime;
+
+        if (controller.collisions.killedEnemy)
+            velocity.y = 15;
     }
 
     public void Die()
     {
-        health = 0;
-        print(health);
+        float damage = 100;
+        health -= damage;
+        playerUIController.TakeDamage(damage);
         Respawn();
     }
 
     void Respawn()
     {
-        health = 100;
         Vector3 spawnPoint = GameObject.Find("SpawnPoint").GetComponent<SpawnPoint>().spawnPoint;
         transform.position = spawnPoint;
-        print(health);
     }
 }

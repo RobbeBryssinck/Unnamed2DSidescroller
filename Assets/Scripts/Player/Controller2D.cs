@@ -58,9 +58,10 @@ public class Controller2D : RaycastController
 
             if (hit)
             {
-                if (hit.collider.tag == "Enemy")
+                if (hit.collider.tag == "DeathZone" || hit.collider.tag == "Enemy")
                 {
                     player.Die();
+                    break;
                 }
                 // fix movement bug when inside other object
                 if (hit.distance == 0)
@@ -122,14 +123,16 @@ public class Controller2D : RaycastController
                 if (hit.collider.tag == "DeathZone")
                 {
                     player.Die();
+                    break;
                 }
                 if (hit.collider.tag == "Enemy" && directionY == -1)
                 {
-                    Enemy enemy = hit.collider.GetComponent<Frog>();
+                    Enemy enemy = hit.collider.GetComponent<Frog>(); // GetComponent<Frog> is not modular
                     if (enemy != null)
                     {
                         enemy.TakeDamage(100);
                     }
+                    collisions.killedEnemy = true;
                 }
                 else
                 {
@@ -263,6 +266,11 @@ public class Controller2D : RaycastController
         collisions.fallingThroughPlatform = false;
     }
 
+    void PlayerDie()
+    {
+        player.Die();
+    }
+
     public struct CollisionInfo
     {
         public bool above, below;
@@ -277,6 +285,8 @@ public class Controller2D : RaycastController
         public Vector2 moveDistanceOld;
         public bool fallingThroughPlatform;
 
+        public bool killedEnemy;
+
         public void Reset()
         {
             above = below = false;
@@ -288,6 +298,8 @@ public class Controller2D : RaycastController
 
             angleOld = angle;
             angle = 0;
+
+            killedEnemy = false;
         }
     }
 }
