@@ -60,6 +60,7 @@ public class Controller2D : RaycastController
             {
                 if (hit.collider.tag == "DeathZone" || hit.collider.tag == "Enemy")
                 {
+                    collisions.isDamagedByEnemy = true;
                     player.Die();
                     break;
                 }
@@ -125,7 +126,7 @@ public class Controller2D : RaycastController
                     player.Die();
                     break;
                 }
-                if (hit.collider.tag == "Enemy" && directionY == -1)
+                if (hit.collider.tag == "Enemy" && directionY == -1 && collisions.isDamagedByEnemy == false)
                 {
                     Enemy enemy = hit.collider.GetComponent<Enemy>();
                     if (enemy != null)
@@ -286,6 +287,8 @@ public class Controller2D : RaycastController
         public bool fallingThroughPlatform;
 
         public bool killedEnemy;
+        // TODO: fix this suboptimal solution
+        public bool isDamagedByEnemy;
 
         public void Reset()
         {
@@ -300,6 +303,7 @@ public class Controller2D : RaycastController
             angle = 0;
 
             killedEnemy = false;
+            isDamagedByEnemy = false;
         }
     }
 }

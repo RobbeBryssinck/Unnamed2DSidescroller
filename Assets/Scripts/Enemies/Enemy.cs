@@ -14,6 +14,8 @@ public abstract class Enemy : MonoBehaviour
     protected float moveSpeed;
     int fromWaypointIndex;
     float percentBetweenWaypoints;
+    Vector3 newPos;
+    Vector3 lastPos;
 
     public virtual void Start()
     {
@@ -22,6 +24,7 @@ public abstract class Enemy : MonoBehaviour
         {
             globalWaypoints[i] = localWaypoints[i] + transform.position;
         }
+        lastPos = transform.position;
     }
 
     public virtual void Update()
@@ -32,10 +35,9 @@ public abstract class Enemy : MonoBehaviour
     public virtual void Patrol()
     {
         int toWaypointIndex = fromWaypointIndex + 1;
-        float distanceBetweenWaypoints = Vector3.Distance(globalWaypoints[fromWaypointIndex], globalWaypoints[toWaypointIndex]);
         percentBetweenWaypoints += Time.deltaTime * moveSpeed;
 
-        Vector3 newPos = Vector3.Lerp(globalWaypoints[fromWaypointIndex], globalWaypoints[toWaypointIndex], percentBetweenWaypoints);
+        newPos = Vector3.Lerp(globalWaypoints[fromWaypointIndex], globalWaypoints[toWaypointIndex], percentBetweenWaypoints);
 
         if (percentBetweenWaypoints >= 1)
         {
@@ -50,6 +52,15 @@ public abstract class Enemy : MonoBehaviour
 
         newPos -= transform.position;
         transform.Translate(newPos);
+
+        if (Mathf.Sign(newPos.x) == 1)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
     }
 
     public abstract void Attack();

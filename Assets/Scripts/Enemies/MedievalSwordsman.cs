@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Frog : Enemy
+public class MedievalSwordsman : Enemy
 {
     protected override float Health { get; set; } = 100;
 

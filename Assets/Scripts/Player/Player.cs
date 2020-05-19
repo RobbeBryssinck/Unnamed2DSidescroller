@@ -46,6 +46,14 @@ public class Player : MonoBehaviour
     public void SetDirectionalInput(Vector2 input)
     {
         directionalInput = input;
+        if (input == Vector2.right)
+        {
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+        if (input == Vector2.left)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
     }
 
     public void OnJumpInputDown()
