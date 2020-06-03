@@ -131,7 +131,8 @@ public class Controller2D : RaycastController
                     Enemy enemy = hit.collider.GetComponent<Enemy>();
                     if (enemy != null)
                     {
-                        enemy.TakeDamage(100);
+                        // TODO: Move damage value. Really dude?
+                        //enemy.TakeDamage(100);
                     }
                     collisions.killedEnemy = true;
                 }
