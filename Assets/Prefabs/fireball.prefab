@@ -101,7 +101,7 @@ MonoBehaviour:
   horizontalRaySpacing: 0
   verticalRaySpacing: 0
   boxcollider: {fileID: 0}
-  speed: 2.5
+  speed: 10
   newScale: 0.5
   direction: -1
   damage: 100
