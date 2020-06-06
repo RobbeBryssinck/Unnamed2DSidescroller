@@ -108,11 +108,17 @@ public class Player : MonoBehaviour
             velocity.y = 15;
     }
 
-    public void Die()
+    public void TakeDamage(float damage)
     {
-        float damage = 100;
         health -= damage;
         playerUIController.TakeDamage(damage);
+
+        if (health <= 0)
+            Die();
+    }
+
+    public void Die()
+    {
         Respawn();
     }
 

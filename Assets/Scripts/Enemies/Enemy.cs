@@ -2,5 +2,16 @@
 
 public abstract class Enemy : MonoBehaviour
 {
-    protected virtual float Health { get; set; }
+    protected float Health { get; set; }
+    public virtual void TakeDamage(float damage)
+    {
+        Health -= damage;
+        if (Health <= 0)
+            Die();
+    }
+
+    protected void Die()
+    {
+        Destroy(gameObject);
+    }
 }

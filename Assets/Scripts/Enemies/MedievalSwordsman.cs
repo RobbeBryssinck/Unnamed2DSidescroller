@@ -2,8 +2,6 @@
 
 public class MedievalSwordsman : Enemy
 {
-    protected override float Health { get; set; } = 100;
-
     [SerializeField]
     protected Vector3[] localWaypoints;
     Vector3[] globalWaypoints;
@@ -14,9 +12,9 @@ public class MedievalSwordsman : Enemy
     float percentBetweenWaypoints;
     Vector3 newPos;
 
-    public virtual void Start()
+    private void Start()
     {
-
+        Health = 100;
         globalWaypoints = new Vector3[localWaypoints.Length];
         for (int i = 0; i < localWaypoints.Length; i++)
         {
@@ -24,12 +22,12 @@ public class MedievalSwordsman : Enemy
         }
     }
 
-    public virtual void Update()
+    private void Update()
     {
         Patrol();
     }
 
-    public virtual void Patrol()
+    private void Patrol()
     {
         int toWaypointIndex = fromWaypointIndex + 1;
         percentBetweenWaypoints += Time.deltaTime * moveSpeed;
@@ -60,19 +58,7 @@ public class MedievalSwordsman : Enemy
         }
     }
 
-    public virtual void TakeDamage(float damage)
-    {
-        Health -= damage;
-        if (Health <= 0)
-            Die();
-    }
-
-    public virtual void Die()
-    {
-        Destroy(gameObject);
-    }
-
-    public virtual void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         if (localWaypoints != null)
         {

@@ -11,7 +11,7 @@ public class Controller2D : RaycastController
     public Vector2 playerInput;
     Player player;
 
-    public override void Start()
+    protected override void Start()
     {
         base.Start();
         player = GetComponent<Player>();
@@ -131,8 +131,8 @@ public class Controller2D : RaycastController
                     Enemy enemy = hit.collider.GetComponent<Enemy>();
                     if (enemy != null)
                     {
-                        // TODO: Move damage value. Really dude?
-                        //enemy.TakeDamage(100);
+                        // TODO: Move damage value.
+                        enemy.TakeDamage(100);
                     }
                     collisions.killedEnemy = true;
                 }
