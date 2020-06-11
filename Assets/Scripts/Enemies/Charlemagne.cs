@@ -7,6 +7,8 @@ public class Charlemagne : Enemy
     public GameObject fireball;
     private int direction;
 
+    private float gravity;
+
     private void Start()
     {
         Health = 1000;
