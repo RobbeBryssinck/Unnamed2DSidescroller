@@ -15,7 +15,6 @@ public class MedievalSwordsmanFSM : FSM
         Dead
     }
 
-    // Player objects
     GameObject player;
 
     // Current state that the NPC is reaching
@@ -37,7 +36,6 @@ public class MedievalSwordsmanFSM : FSM
     Vector3 position;
     Vector3 destination;
 
-    // Whether the NPC is destroyed or not
     private bool isDead;
     private float health;
 
@@ -89,17 +87,7 @@ public class MedievalSwordsmanFSM : FSM
         if (Vector3.Distance(transform.position, destination) <= 0.2f)
             FindNextPoint();
 
-        CalculateHorizontalMovement();
-        CalculateVerticalMovement();
-        transform.Translate(position);
-
-        if (collisions.above || collisions.below)
-            velocity.y = 0;
-
-        if (Mathf.Sign(position.x) == 1)
-            GetComponent<SpriteRenderer>().flipX = true;
-        else
-            GetComponent<SpriteRenderer>().flipX = false;
+        Move();
     }
 
     protected void CalculateHorizontalMovement()
@@ -140,6 +128,21 @@ public class MedievalSwordsmanFSM : FSM
         position.y = moveDistance.y;
     }
 
+    protected void Move()
+    {
+        CalculateHorizontalMovement();
+        CalculateVerticalMovement();
+        transform.Translate(position);
+
+        if (collisions.above || collisions.below)
+            velocity.y = 0;
+
+        if (Mathf.Sign(position.x) == 1)
+            GetComponent<SpriteRenderer>().flipX = true;
+        else
+            GetComponent<SpriteRenderer>().flipX = false;
+    }
+
     protected void FindNextPoint()
     {
         waypointIndex++;
@@ -152,7 +155,17 @@ public class MedievalSwordsmanFSM : FSM
 
     protected void UpdateChaseState()
     {
-        throw new System.NotImplementedException();
+        destination = playerTransform.position;
+
+        float distance = Vector3.Distance(transform.position, playerTransform.position);
+
+        if (distance >= 5.0f)
+        {
+            destination = globalWaypoints[waypointIndex];
+            curState = FSMState.Patrol;
+        }
+
+        Move();
     }
 
     protected void UpdateDeadState()
