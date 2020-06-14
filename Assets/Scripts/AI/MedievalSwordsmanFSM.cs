@@ -39,21 +39,19 @@ public class MedievalSwordsmanFSM : FSM
 
     // Whether the NPC is destroyed or not
     private bool isDead;
-    private int health;
+    private float health;
 
     protected override void Initialize()
     {
         gravity = -10;
 
-        collisions = new Collisions();
-
         player = GameObject.FindGameObjectWithTag("Player");
         playerTransform = player.transform;
 
         curState = FSMState.Patrol;
-        moveSpeed = 5f;
+        moveSpeed = 5.0f;
         isDead = false;
-        health = 100;
+        health = 100f;
 
         globalWaypoints = new Vector3[localWaypoints.Length];
         for (int i = 0; i < localWaypoints.Length; i++)
@@ -88,15 +86,11 @@ public class MedievalSwordsmanFSM : FSM
         if (Vector3.Distance(playerTransform.position, transform.position) <= 5.0f)
             curState = FSMState.Chase;
 
-        print(Vector3.Distance(transform.position, destination));
         if (Vector3.Distance(transform.position, destination) <= 0.2f)
             FindNextPoint();
 
-        float directionX = Mathf.Sign(destination.x - transform.position.x);
-        position.x = directionX * moveSpeed * Time.deltaTime;
-
-        CalculateVerticalMovement(ref position);
-
+        CalculateHorizontalMovement();
+        CalculateVerticalMovement();
         transform.Translate(position);
 
         if (collisions.above || collisions.below)
@@ -108,7 +102,13 @@ public class MedievalSwordsmanFSM : FSM
             GetComponent<SpriteRenderer>().flipX = false;
     }
 
-    protected void CalculateVerticalMovement(ref Vector3 position)
+    protected void CalculateHorizontalMovement()
+    {
+        float directionX = Mathf.Sign(destination.x - transform.position.x);
+        position.x = directionX * moveSpeed * Time.deltaTime;
+    }
+
+    protected void CalculateVerticalMovement()
     {
         velocity.y += gravity * Time.deltaTime;
         moveDistance.y = velocity.y * Time.deltaTime;
