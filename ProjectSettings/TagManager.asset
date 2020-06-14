@@ -9,6 +9,7 @@ TagManager:
   - DeathZone
   - Enemy
   - Obstacle
+  - PatrolWaypoint
   layers:
   - Default
   - TransparentFX

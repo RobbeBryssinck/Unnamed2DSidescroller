@@ -55,7 +55,7 @@ public class RaycastController : MonoBehaviour
         float boundsWidth = bounds.size.x;
         float boundsHeight = bounds.size.y;
 
-        // make sure that there are at least 2 rays
+        // makes sure that there are at least 2 rays
         horizontalRayCount = Mathf.RoundToInt(boundsHeight / distanceBetweenRays);
         verticalRayCount = Mathf.RoundToInt(boundsWidth / distanceBetweenRays);
 

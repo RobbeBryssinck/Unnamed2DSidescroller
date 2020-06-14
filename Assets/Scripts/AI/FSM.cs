@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class FSM : MonoBehaviour
+public abstract class FSM : RaycastController
 {
     // Player transform
     protected Transform playerTransform;
@@ -17,8 +17,9 @@ public abstract class FSM : MonoBehaviour
     protected abstract void FSMUpdate();
     protected abstract void FSMFixedUpdate();
 
-    protected void Start()
+    protected override void Start()
     {
+        base.Start();
         Initialize();
     }
     
@@ -29,6 +30,6 @@ public abstract class FSM : MonoBehaviour
 
     protected void FixedUpdate()
     {
-        FSMFixedUpdate();
+        //FSMFixedUpdate();
     }
 }

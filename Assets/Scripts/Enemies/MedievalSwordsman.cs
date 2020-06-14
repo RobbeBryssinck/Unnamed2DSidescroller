@@ -49,13 +49,9 @@ public class MedievalSwordsman : Enemy
         transform.Translate(newPos);
 
         if (Mathf.Sign(newPos.x) == 1)
-        {
             GetComponent<SpriteRenderer>().flipX = true;
-        }
         else
-        {
             GetComponent<SpriteRenderer>().flipX = false;
-        }
     }
 
     private void OnDrawGizmos()
