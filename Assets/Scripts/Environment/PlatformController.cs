@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlatformController : RaycastController
+public class PlatformController : MonoBehaviour
 {
+    private RaycastController rcController;
+
     public LayerMask passengerMask;
 
     public Vector3[] localWaypoints;
@@ -22,9 +24,10 @@ public class PlatformController : RaycastController
     List<PassengerMovement> passengerMovements;
     Dictionary<Transform, Controller2D> passengerDictionary = new Dictionary<Transform, Controller2D>();
 
-    protected override void Start()
+    protected void Start()
     {
-        base.Start();
+        rcController = new RaycastController(GetComponent<BoxCollider2D>());
+
         globalWaypoints = new Vector3[localWaypoints.Length];
         for (int i = 0; i < localWaypoints.Length; i++)
         {
@@ -34,7 +37,7 @@ public class PlatformController : RaycastController
 
     void Update()
     {
-        UpdateRaycastOrigins();
+        rcController.UpdateRaycastOrigins();
 
         Vector3 moveDistance = CalculatePlatformMovement();
 
@@ -111,12 +114,12 @@ public class PlatformController : RaycastController
         // Vertically moving platform
         if (moveDistance.y != 0)
         {
-            float rayLength = Mathf.Abs(moveDistance.y) + skinWidth;
+            float rayLength = Mathf.Abs(moveDistance.y) + RaycastController.skinWidth;
 
-            for (int i = 0; i < verticalRayCount; i++)
+            for (int i = 0; i < rcController.verticalRayCount; i++)
             {
-                Vector2 rayOrigin = (directionY == -1) ? raycastOrigins.bottomLeft : raycastOrigins.topLeft;
-                rayOrigin += Vector2.right * verticalRaySpacing * i;
+                Vector2 rayOrigin = (directionY == -1) ? rcController.raycastOrigins.bottomLeft : rcController.raycastOrigins.topLeft;
+                rayOrigin += Vector2.right * rcController.verticalRaySpacing * i;
                 RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, passengerMask);
 
                 if (hit && hit.distance != 0)
@@ -125,7 +128,7 @@ public class PlatformController : RaycastController
                     {
                         movedPassengers.Add(hit.transform);
                         float pushX = (directionY == 1) ? moveDistance.x : 0;
-                        float pushY = moveDistance.y - (hit.distance - skinWidth) * directionY;
+                        float pushY = moveDistance.y - (hit.distance - RaycastController.skinWidth) * directionY;
 
                         passengerMovements.Add(new PassengerMovement(hit.transform, new Vector2(pushX, pushY), directionY == 1, true));
                     }
@@ -136,12 +139,12 @@ public class PlatformController : RaycastController
         // Horizontally moving platform
         if (moveDistance.x != 0)
         {
-            float rayLength = Mathf.Abs(moveDistance.x) + skinWidth;
+            float rayLength = Mathf.Abs(moveDistance.x) + RaycastController.skinWidth;
 
-            for (int i = 0; i < horizontalRayCount; i++)
+            for (int i = 0; i < rcController.horizontalRayCount; i++)
             {
-                Vector2 rayOrigin = (directionX == -1) ? raycastOrigins.bottomLeft : raycastOrigins.bottomRight;
-                rayOrigin += Vector2.up * (horizontalRaySpacing * i);
+                Vector2 rayOrigin = (directionX == -1) ? rcController.raycastOrigins.bottomLeft : rcController.raycastOrigins.bottomRight;
+                rayOrigin += Vector2.up * (rcController.horizontalRaySpacing * i);
                 RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, passengerMask);
 
                 if (hit && hit.distance != 0)
@@ -149,8 +152,8 @@ public class PlatformController : RaycastController
                     if (!movedPassengers.Contains(hit.transform))
                     {
                         movedPassengers.Add(hit.transform);
-                        float pushX = moveDistance.x - (hit.distance - skinWidth) * directionX;
-                        float pushY = -skinWidth;
+                        float pushX = moveDistance.x - (hit.distance - RaycastController.skinWidth) * directionX;
+                        float pushY = -(RaycastController.skinWidth);
 
                         passengerMovements.Add(new PassengerMovement(hit.transform, new Vector2(pushX, pushY), false, true));
                     }
@@ -161,12 +164,12 @@ public class PlatformController : RaycastController
         // if a passenger is on top of a horizontally or downward moving platform
         if (directionY == -1 || moveDistance.y == 0 && moveDistance.x != 0)
         {
-            float rayLength = skinWidth * 2;
+            float rayLength = RaycastController.skinWidth * 2;
 
-            for (int i = 0; i < verticalRayCount; i++)
+            for (int i = 0; i < rcController.verticalRayCount; i++)
             {
-                Vector2 rayOrigin = raycastOrigins.topLeft;
-                rayOrigin += Vector2.right * verticalRaySpacing * i;
+                Vector2 rayOrigin = rcController.raycastOrigins.topLeft;
+                rayOrigin += Vector2.right * rcController.verticalRaySpacing * i;
                 RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up, rayLength, passengerMask);
 
                 if (hit && hit.distance != 0)

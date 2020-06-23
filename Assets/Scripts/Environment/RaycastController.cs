@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider2D))]
-public class RaycastController : MonoBehaviour
+public class RaycastController
 {
     // Set layer, so no objects collide with themselves
     public LayerMask collisionMask;
@@ -25,13 +24,9 @@ public class RaycastController : MonoBehaviour
     public BoxCollider2D boxcollider;
     public RaycastOrigins raycastOrigins;
 
-    public virtual void Awake()
+    public RaycastController(BoxCollider2D boxcollider)
     {
-        boxcollider = GetComponent<BoxCollider2D>();
-    }
-    
-    protected virtual void Start()
-    {
+        this.boxcollider = boxcollider;
         CalculateRaySpacing();
     }
 

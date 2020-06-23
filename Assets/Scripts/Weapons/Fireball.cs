@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fireball : RaycastController
+public class Fireball : MonoBehaviour
 {
+    private RaycastController rcController;
+
     public float speed;
     public float newScale;
     public int direction;
@@ -12,10 +14,10 @@ public class Fireball : RaycastController
     private Vector2 moveDistance;
     private CollisionInfo collisions;
 
-    protected override void Start()
+    protected void Start()
     {
+        rcController = new RaycastController(GetComponent<BoxCollider2D>());
         SetScale(newScale);
-        base.Start();
     }
 
     private void SetScale(float newScale)
@@ -26,7 +28,7 @@ public class Fireball : RaycastController
 
     private void Update()
     {
-        UpdateRaycastOrigins();
+        rcController.UpdateRaycastOrigins();
         collisions.Reset();
         moveDistance = Vector2.right * direction * speed * Time.deltaTime;
         HorizontalCollisions(ref moveDistance);
@@ -43,11 +45,11 @@ public class Fireball : RaycastController
         float directionX = Mathf.Sign(moveDistance.x);
         float rayLength = Mathf.Abs(moveDistance.x);
 
-        for (int i = 0; i < horizontalRayCount; i++)
+        for (int i = 0; i < rcController.horizontalRayCount; i++)
         {
-            Vector2 rayOrigin = (directionX == -1) ? raycastOrigins.bottomLeft : raycastOrigins.bottomRight;
-            rayOrigin += Vector2.up * horizontalRaySpacing * i;
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask);
+            Vector2 rayOrigin = (directionX == -1) ? rcController.raycastOrigins.bottomLeft : rcController.raycastOrigins.bottomRight;
+            rayOrigin += Vector2.up * rcController.horizontalRaySpacing * i;
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, rcController.collisionMask);
 
             Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
 
