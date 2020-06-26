@@ -5,6 +5,8 @@ public abstract class NPCController : MonoBehaviour
     protected GameObject player;
     protected FSMSystem fsm;
 
+    public float Health { get; set; }
+
     public void SetTransition(Transition t) { fsm.PerformTransition(t); }
 
     protected abstract void Start();

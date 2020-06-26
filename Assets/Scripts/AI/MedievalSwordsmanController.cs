@@ -11,6 +11,8 @@ public class MedievalSwordsmanController : NPCController
     {
         player = GameObject.FindGameObjectWithTag("Player");
 
+        Health = 100f;
+
         globalWaypoints = new Vector3[localWaypoints.Length];
         for (int i = 0; i < localWaypoints.Length; i++)
         {
