@@ -8,6 +8,9 @@ using UnityEngine.UIElements;
 
 public class AIMovement : MonoBehaviour
 {
+    // Set layer, so no objects collide with themselves
+    public LayerMask collisionMask;
+
     private RaycastController rcController;
 
     [SerializeField]
@@ -24,7 +27,7 @@ public class AIMovement : MonoBehaviour
     {
         rcController = new RaycastController(GetComponent<BoxCollider2D>());
 
-        gravity = -10;
+        gravity = -10f;
     }
 
     public void Move(Vector3 destination)
@@ -65,7 +68,7 @@ public class AIMovement : MonoBehaviour
         {
             Vector2 rayOrigin = (directionY == -1) ? rcController.raycastOrigins.bottomLeft : rcController.raycastOrigins.topLeft;
             rayOrigin += Vector2.right * (rcController.verticalRaySpacing * i + moveDistance.x);
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, rcController.collisionMask);
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
 
             Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
 

@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class RaycastController
 {
-    // Set layer, so no objects collide with themselves
-    public LayerMask collisionMask;
-
     // skinwidth is a small part of the player model on the bottom
     public const float skinWidth = .015f;
     const float distanceBetweenRays = .25f;

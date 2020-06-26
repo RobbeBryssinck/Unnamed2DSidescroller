@@ -20,6 +20,7 @@ public class PatrolState : FSMState
         waypointMax = waypoints.Length;
         waypointIndex = 0;
         destination = waypoints[waypointIndex];
+        stateID = StateID.Patrolling;
     }
 
     public override void Reason(GameObject player, GameObject npc)

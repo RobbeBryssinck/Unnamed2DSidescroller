@@ -1,55 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class MedievalSwordsmanController : MonoBehaviour
+[RequireComponent(typeof(AIMovement))]
+public class MedievalSwordsmanController : NPCController
 {
-    GameObject player;
-    private FSMSystem fsm;
-
     [SerializeField]
     protected Vector3[] localWaypoints;
     Vector3[] globalWaypoints;
-    int waypointIndex;
-    int waypointMax;
 
-    Vector3 position;
-    Vector3 destination;
-
-    private bool isDead;
-    private float health;
-
-    public void SetTransition(Transition t) { fsm.PerformTransition(t); }
-
-    protected void Start()
+    protected override void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-
-        isDead = false;
-        health = 100f;
 
         globalWaypoints = new Vector3[localWaypoints.Length];
         for (int i = 0; i < localWaypoints.Length; i++)
         {
             globalWaypoints[i] = localWaypoints[i] + transform.position;
         }
-        waypointIndex = 0;
-        waypointMax = globalWaypoints.Length;
-        destination = globalWaypoints[waypointIndex];
 
         MakeFSM();
     }
 
-    public void FixedUpdate()
-    {
-        fsm.CurrentState.Reason(player, gameObject);
-        fsm.CurrentState.Act(player, gameObject);
-    }
-
-    private void MakeFSM()
+    protected override void MakeFSM()
     {
         PatrolState patrol = new PatrolState(globalWaypoints);
         patrol.AddTransition(Transition.SawPlayer, StateID.Chasing);

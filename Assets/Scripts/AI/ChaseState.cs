@@ -9,6 +9,11 @@ public class ChaseState : FSMState
 {
     private AIMovement aiMovement;
 
+    public ChaseState()
+    {
+        stateID = StateID.Chasing;
+    }
+
     public override void Reason(GameObject player, GameObject npc)
     {
         // TODO: to make state classes modular, make an interface for

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Controller2D : MonoBehaviour
 {
+    // Set layer, so no objects collide with themselves
+    public LayerMask collisionMask;
+
     private RaycastController rcController;
 
     public float maxSlopeAngle = 80;
@@ -54,7 +57,7 @@ public class Controller2D : MonoBehaviour
         {
             Vector2 rayOrigin = (directionX == -1) ? rcController.raycastOrigins.bottomLeft : rcController.raycastOrigins.bottomRight;
             rayOrigin += Vector2.up * rcController.horizontalRaySpacing * i;
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, rcController.collisionMask);
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask);
 
             Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
 
@@ -117,7 +120,7 @@ public class Controller2D : MonoBehaviour
         {
             Vector2 rayOrigin = (directionY == -1) ? rcController.raycastOrigins.bottomLeft : rcController.raycastOrigins.topLeft;
             rayOrigin += Vector2.right * (rcController.verticalRaySpacing * i + moveDistance.x);
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, rcController.collisionMask);
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
 
             Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
 
@@ -176,7 +179,7 @@ public class Controller2D : MonoBehaviour
             float directionX = Mathf.Sign(moveDistance.x);
             rayLength = Mathf.Abs(moveDistance.x) + RaycastController.skinWidth;
             Vector2 rayOrigin = ((directionX == -1) ? rcController.raycastOrigins.bottomLeft : rcController.raycastOrigins.bottomRight) + Vector2.up * moveDistance.y;
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, rcController.collisionMask);
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask);
 
             if (hit)
             {
@@ -209,8 +212,8 @@ public class Controller2D : MonoBehaviour
 
     void Descend(ref Vector2 moveDistance)
     {
-        RaycastHit2D maxSlopeHitLeft = Physics2D.Raycast(rcController.raycastOrigins.bottomLeft, Vector2.down, Mathf.Abs(moveDistance.y) + RaycastController.skinWidth, rcController.collisionMask);
-        RaycastHit2D maxSlopeHitRight = Physics2D.Raycast(rcController.raycastOrigins.bottomRight, Vector2.down, Mathf.Abs(moveDistance.y) + RaycastController.skinWidth, rcController.collisionMask);
+        RaycastHit2D maxSlopeHitLeft = Physics2D.Raycast(rcController.raycastOrigins.bottomLeft, Vector2.down, Mathf.Abs(moveDistance.y) + RaycastController.skinWidth, collisionMask);
+        RaycastHit2D maxSlopeHitRight = Physics2D.Raycast(rcController.raycastOrigins.bottomRight, Vector2.down, Mathf.Abs(moveDistance.y) + RaycastController.skinWidth, collisionMask);
         if (maxSlopeHitLeft ^ maxSlopeHitRight)
         {
             SlideDownMaxSlope(maxSlopeHitLeft, ref moveDistance);
@@ -222,7 +225,7 @@ public class Controller2D : MonoBehaviour
 
             float directionX = Mathf.Sign(moveDistance.x);
             Vector2 rayOrigin = (directionX == -1) ? rcController.raycastOrigins.bottomRight : rcController.raycastOrigins.bottomLeft;
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, Mathf.Infinity, rcController.collisionMask);
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, Mathf.Infinity, collisionMask);
 
             if (hit)
             {

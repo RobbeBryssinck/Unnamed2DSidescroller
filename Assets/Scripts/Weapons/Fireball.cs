@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Fireball : MonoBehaviour
 {
+    // Set layer, so no objects collide with themselves
+    public LayerMask collisionMask;
+
     private RaycastController rcController;
 
     public float speed;
@@ -49,7 +52,7 @@ public class Fireball : MonoBehaviour
         {
             Vector2 rayOrigin = (directionX == -1) ? rcController.raycastOrigins.bottomLeft : rcController.raycastOrigins.bottomRight;
             rayOrigin += Vector2.up * rcController.horizontalRaySpacing * i;
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, rcController.collisionMask);
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask);
 
             Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
 

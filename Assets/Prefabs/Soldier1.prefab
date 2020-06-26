@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 978126793563883551}
   - component: {fileID: 978126793563883550}
   - component: {fileID: 978126793563883548}
-  - component: {fileID: 4999506892973549153}
+  - component: {fileID: 760366838281657658}
+  - component: {fileID: -3110779268244219159}
   m_Layer: 0
   m_Name: Soldier1
   m_TagString: Enemy
@@ -110,7 +111,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.875, y: 0.9375}
   m_EdgeRadius: 0
---- !u!114 &4999506892973549153
+--- !u!114 &760366838281657658
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,19 +120,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 978126793563883555}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ca5abcc68eab0b4c9e16f1afdbe29a8, type: 3}
+  m_Script: {fileID: 11500000, guid: 3df8933a7f3d30142b35f8bf1365c3a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionMask:
-    serializedVersion: 2
-    m_Bits: 512
-  horizontalRayCount: 0
-  verticalRayCount: 0
-  horizontalRaySpacing: 0
-  verticalRaySpacing: 0
-  boxcollider: {fileID: 0}
-  curState: 1
-  moveSpeed: 5
-  localWaypoints:
-  - {x: -1.91, y: 0, z: 0}
-  - {x: 3.96, y: 0, z: 0}
+  moveSpeed: 2
+--- !u!114 &-3110779268244219159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978126793563883555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20b83042fc346a04a9ae853ed49d6296, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localWaypoints: []
