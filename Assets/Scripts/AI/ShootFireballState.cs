@@ -6,8 +6,8 @@ public class ShootFireballState : FSMState
 
     private bool isDoneShooting;
     private int shotsFired;
-    private int maxShots;
-    private float timeBetweenShots;
+    private readonly int maxShots;
+    private readonly float timeBetweenShots;
     private float timeBetweenShotsLeft;
 
     public ShootFireballState(GameObject npc, int maxShots, float timeBetweenShots)

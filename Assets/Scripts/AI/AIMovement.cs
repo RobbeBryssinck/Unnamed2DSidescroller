@@ -28,6 +28,9 @@ public class AIMovement : MonoBehaviour
     {
         this.destination = destination;
 
+        rcController.UpdateRaycastOrigins();
+        collisions.Reset();
+
         CalculateHorizontalMovement();
         CalculateVerticalMovement();
         transform.Translate(moveDistance);
@@ -51,9 +54,6 @@ public class AIMovement : MonoBehaviour
     {
         velocity.y += gravity * Time.deltaTime;
         moveDistance.y = velocity.y * Time.deltaTime;
-
-        rcController.UpdateRaycastOrigins();
-        collisions.Reset();
 
         float directionY = Mathf.Sign(moveDistance.y);
         float rayLength = Mathf.Abs(moveDistance.y) + RaycastController.skinWidth;
@@ -79,6 +79,9 @@ public class AIMovement : MonoBehaviour
 
     public void SimulateGravity()
     {
+        rcController.UpdateRaycastOrigins();
+        collisions.Reset();
+
         CalculateVerticalMovement();
         moveDistance.x = 0;
         transform.Translate(moveDistance);
