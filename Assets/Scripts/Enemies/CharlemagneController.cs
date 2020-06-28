@@ -27,4 +27,15 @@ public class CharlemagneController : NPCController
     {
         throw new NotImplementedException();
     }
+
+    // TODO: Move to FSM
+    private void ShootFireball()
+    {
+        Instantiate(fireball, transform.position, transform.rotation, transform);
+
+        /*
+        var fireballcomponent = fireball.GetComponent<Fireball>();
+        fireballcomponent.direction = direction;
+        */
+    }
 }

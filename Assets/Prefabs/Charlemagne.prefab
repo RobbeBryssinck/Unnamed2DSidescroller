@@ -10,11 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3682126972318436796}
   - component: {fileID: 2984729490590337763}
-  - component: {fileID: 1365720955232042294}
   - component: {fileID: 8676582571074549276}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Charlemagne
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,20 +83,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1365720955232042294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2304019658297677424}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c01d6f02c50b8b144b1c93f3f80aa4b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fireball: {fileID: 2648150642304957173, guid: be899f9092974404383dc350e6e54917,
-    type: 3}
 --- !u!61 &8676582571074549276
 BoxCollider2D:
   m_ObjectHideFlags: 0

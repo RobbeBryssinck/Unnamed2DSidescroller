@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Fireball : MonoBehaviour
 {
@@ -62,7 +60,7 @@ public class Fireball : MonoBehaviour
                 // Not necessary, just an idea.
                 if (hit.collider.tag == "Enemy")
                 {
-                    Enemy enemy = hit.collider.GetComponent<Enemy>();
+                    NPCController enemy = hit.collider.GetComponent<NPCController>();
                     if (enemy != null)
                         enemy.TakeDamage(damage);
                 }
