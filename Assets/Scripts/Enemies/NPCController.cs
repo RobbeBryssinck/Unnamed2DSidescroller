@@ -6,6 +6,7 @@ public abstract class NPCController : MonoBehaviour
     protected FSMSystem fsm;
 
     public float Health { get; set; }
+    public int Direction { get; set; } = -1;
 
     public void SetTransition(Transition t) { fsm.PerformTransition(t); }
 
@@ -22,7 +23,10 @@ public abstract class NPCController : MonoBehaviour
 
     protected abstract void MakeFSM();
 
-    public abstract void TakeDamage(float damage);
+    public virtual void TakeDamage(float damage)
+    {
+        Health -= damage;
+    }
 
     public virtual void Die()
     {

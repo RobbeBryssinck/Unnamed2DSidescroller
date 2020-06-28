@@ -1948,16 +1948,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Charlemagne
       objectReference: {fileID: 0}
-    - target: {fileID: 2304019658297677424, guid: 538551d8080768b4a9ee88780fec8272,
-        type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 2304019658297677424, guid: 538551d8080768b4a9ee88780fec8272,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: 3682126972318436796, guid: 538551d8080768b4a9ee88780fec8272,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3682126972318436796}
   - component: {fileID: 2984729490590337763}
   - component: {fileID: 8676582571074549276}
+  - component: {fileID: 1964341250949613865}
+  - component: {fileID: 2015310603}
   m_Layer: 10
   m_Name: Charlemagne
   m_TagString: Enemy
@@ -109,3 +111,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9411814, y: 1.8781258}
   m_EdgeRadius: 0
+--- !u!114 &1964341250949613865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2304019658297677424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd9892bd8ccedff4fb3fc0aafac59bd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2015310603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2304019658297677424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 798baf098f5dd0542be49349657923cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 2648150642304957173, guid: be899f9092974404383dc350e6e54917, type: 3}

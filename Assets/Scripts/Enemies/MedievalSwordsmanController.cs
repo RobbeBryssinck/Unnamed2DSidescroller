@@ -42,6 +42,11 @@ public class MedievalSwordsmanController : NPCController
         fsm.AddState(dead);
     }
 
+    public override void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
+    }
+
     private void OnDrawGizmos()
     {
         if (localWaypoints != null)
@@ -56,10 +61,5 @@ public class MedievalSwordsmanController : NPCController
                 Gizmos.DrawLine(globalWaypointPos - Vector3.left * size, globalWaypointPos + Vector3.left * size);
             }
         }
-    }
-
-    public override void TakeDamage(float damage)
-    {
-        Health -= damage;
     }
 }

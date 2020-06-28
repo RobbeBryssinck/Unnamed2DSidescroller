@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-
-public class CharlemagneController : NPCController
+﻿public class CharlemagneController : NPCController
 {
-    public GameObject fireball;
-
     protected override void Start()
     {
         base.Start();
@@ -20,22 +11,24 @@ public class CharlemagneController : NPCController
 
     protected override void MakeFSM()
     {
-        throw new NotImplementedException();
+        ShootFireballState shootFireball = new ShootFireballState(gameObject);
+        shootFireball.AddTransition(Transition.DoneShootingFireballs, StateID.MeleeAttack);
+        shootFireball.AddTransition(Transition.NoHealth, StateID.Dead);
+
+        MeleeAttackState meleeAttack = new MeleeAttackState();
+        meleeAttack.AddTransition(Transition.DoneMeleeAttack, StateID.ShootingFireballs);
+        meleeAttack.AddTransition(Transition.NoHealth, StateID.Dead);
+
+        DeadState dead = new DeadState();
+
+        fsm = new FSMSystem();
+        fsm.AddState(shootFireball);
+        fsm.AddState(meleeAttack);
+        fsm.AddState(dead);
     }
 
     public override void TakeDamage(float damage)
     {
-        throw new NotImplementedException();
-    }
-
-    // TODO: Move to FSM
-    private void ShootFireball()
-    {
-        Instantiate(fireball, transform.position, transform.rotation, transform);
-
-        /*
-        var fireballcomponent = fireball.GetComponent<Fireball>();
-        fireballcomponent.direction = direction;
-        */
+        base.TakeDamage(damage);
     }
 }
