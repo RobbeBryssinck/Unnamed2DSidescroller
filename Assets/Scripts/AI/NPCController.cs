@@ -9,7 +9,10 @@ public abstract class NPCController : MonoBehaviour
 
     public void SetTransition(Transition t) { fsm.PerformTransition(t); }
 
-    protected abstract void Start();
+    protected virtual void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
     
     protected virtual void FixedUpdate()
     {

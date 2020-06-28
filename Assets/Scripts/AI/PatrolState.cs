@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PatrolState : FSMState
 {
@@ -14,19 +9,20 @@ public class PatrolState : FSMState
     private int waypointMax;
     private Vector3 destination;
 
-    public PatrolState(Vector3[] waypoints)
+    public PatrolState(Vector3[] waypoints, GameObject npc)
     {
         this.waypoints = waypoints;
         waypointMax = waypoints.Length;
         waypointIndex = 0;
         destination = waypoints[waypointIndex];
+        aiMovement = npc.GetComponent<AIMovement>();
         stateID = StateID.Patrolling;
     }
 
     public override void Reason(GameObject player, GameObject npc)
     {
         if (Vector3.Distance(player.transform.position, npc.transform.position) <= 5.0f)
-            npc.GetComponent<MedievalSwordsmanController>().SetTransition(Transition.SawPlayer);
+            npc.GetComponent<NPCController>().SetTransition(Transition.SawPlayer);
     }
 
     public override void Act(GameObject player, GameObject npc)
@@ -34,7 +30,6 @@ public class PatrolState : FSMState
         if (Vector3.Distance(npc.transform.position, destination) <= 0.2f)
             FindNextPoint();
 
-        aiMovement = npc.GetComponent<AIMovement>();
         aiMovement.Move(destination);
     }
 

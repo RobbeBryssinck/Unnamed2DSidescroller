@@ -12,6 +12,7 @@ public enum Transition
     NullTransition = 0,
     SawPlayer,
     LostPlayer,
+    InAttackRange,
     NoHealth,
 }
 
@@ -24,6 +25,7 @@ public enum StateID
     NullStateID = 0,
     Patrolling,
     Chasing,
+    Attack,
     Dead,
 }
 

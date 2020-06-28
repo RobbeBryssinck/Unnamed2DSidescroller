@@ -9,7 +9,7 @@ public class MedievalSwordsmanController : NPCController
 
     protected override void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        base.Start();
 
         Health = 100f;
 
@@ -24,7 +24,7 @@ public class MedievalSwordsmanController : NPCController
 
     protected override void MakeFSM()
     {
-        PatrolState patrol = new PatrolState(globalWaypoints);
+        PatrolState patrol = new PatrolState(globalWaypoints, gameObject);
         patrol.AddTransition(Transition.SawPlayer, StateID.Chasing);
 
         ChaseState chase = new ChaseState();
