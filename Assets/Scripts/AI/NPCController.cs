@@ -24,7 +24,7 @@ public abstract class NPCController : MonoBehaviour
 
     public abstract void TakeDamage(float damage);
 
-    protected virtual void Die()
+    public virtual void Die()
     {
         Destroy(gameObject);
     }

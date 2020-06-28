@@ -34,9 +34,12 @@ public class MedievalSwordsmanController : NPCController
         chase.AddTransition(Transition.LostPlayer, StateID.Patrolling);
         chase.AddTransition(Transition.NoHealth, StateID.Dead);
 
+        DeadState dead = new DeadState();
+
         fsm = new FSMSystem();
         fsm.AddState(patrol);
         fsm.AddState(chase);
+        fsm.AddState(dead);
     }
 
     private void OnDrawGizmos()

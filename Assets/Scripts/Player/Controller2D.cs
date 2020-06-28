@@ -140,6 +140,7 @@ public class Controller2D : MonoBehaviour
                         enemy.TakeDamage(100f);
                     }
                     collisions.killedEnemy = true;
+                    break;
                 }
                 else
                 {
