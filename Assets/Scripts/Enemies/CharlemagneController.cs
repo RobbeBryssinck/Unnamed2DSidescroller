@@ -1,17 +1,30 @@
-﻿public class CharlemagneController : NPCController
+﻿using UnityEngine;
+
+public class CharlemagneController : NPCController
 {
+    private AIMovement aiMovement;
+    [SerializeField]
+    private int maxShots;
+
     protected override void Start()
     {
         base.Start();
 
         Health = 1000f;
+        aiMovement = GetComponent<AIMovement>();
 
         MakeFSM();
     }
 
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+        aiMovement.SimulateGravity();
+    }
+
     protected override void MakeFSM()
     {
-        ShootFireballState shootFireball = new ShootFireballState(gameObject);
+        ShootFireballState shootFireball = new ShootFireballState(gameObject, 3, 0.3f);
         shootFireball.AddTransition(Transition.DoneShootingFireballs, StateID.MeleeAttack);
         shootFireball.AddTransition(Transition.NoHealth, StateID.Dead);
 

@@ -5,16 +5,24 @@ public class ShootFireballState : FSMState
     private NPCAttack npcAttack;
 
     private bool isDoneShooting;
+    private int shotsFired;
+    private int maxShots;
+    private float timeBetweenShots;
+    private float timeBetweenShotsLeft;
 
-    public ShootFireballState(GameObject npc)
+    public ShootFireballState(GameObject npc, int maxShots, float timeBetweenShots)
     {
         stateID = StateID.ShootingFireballs;
         npcAttack = npc.GetComponent<NPCAttack>();
+        this.maxShots = maxShots;
+        this.timeBetweenShots = timeBetweenShots;
     }
 
     public override void DoBeforeEntering()
     {
         isDoneShooting = false;
+        shotsFired = 0;
+        timeBetweenShotsLeft = timeBetweenShots;
     }
 
     public override void Reason(GameObject player, GameObject npc)
@@ -31,7 +39,17 @@ public class ShootFireballState : FSMState
         if (isDoneShooting)
             return;
 
-        npcAttack.ExecuteAttack();
-        isDoneShooting = true;
+        timeBetweenShotsLeft -= Time.deltaTime;
+
+        if (timeBetweenShotsLeft <= 0f)
+        {
+            npcAttack.ExecuteAttack();
+
+            shotsFired++;
+            if (shotsFired >= maxShots)
+                isDoneShooting = true;
+
+            timeBetweenShotsLeft = timeBetweenShots;
+        }
     }
 }

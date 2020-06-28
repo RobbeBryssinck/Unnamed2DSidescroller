@@ -77,6 +77,16 @@ public class AIMovement : MonoBehaviour
         }
     }
 
+    public void SimulateGravity()
+    {
+        CalculateVerticalMovement();
+        moveDistance.x = 0;
+        transform.Translate(moveDistance);
+
+        if (collisions.above || collisions.below)
+            velocity.y = 0;
+    }
+
     public struct Collisions
     {
         public bool below, above;

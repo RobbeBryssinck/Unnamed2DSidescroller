@@ -255,7 +255,7 @@ PrefabInstance:
     - target: {fileID: 2219910324526888925, guid: 36866777d1ccde04e8a726a7ec295ef2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.54
+      value: -11.56
       objectReference: {fileID: 0}
     - target: {fileID: 2219910324526888925, guid: 36866777d1ccde04e8a726a7ec295ef2,
         type: 3}
@@ -581,6 +581,28 @@ Camera:
     type: 3}
   m_PrefabInstance: {fileID: 828501576}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2015310601 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2304019658297677424, guid: 538551d8080768b4a9ee88780fec8272,
+    type: 3}
+  m_PrefabInstance: {fileID: 739811311579904103}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2015310607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015310601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3df8933a7f3d30142b35f8bf1365c3a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 512
+  moveSpeed: 2
 --- !u!1 &2052657272
 GameObject:
   m_ObjectHideFlags: 0
@@ -1943,6 +1965,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1964341250949613865, guid: 538551d8080768b4a9ee88780fec8272,
+        type: 3}
+      propertyPath: maxShots
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2304019658297677424, guid: 538551d8080768b4a9ee88780fec8272,
         type: 3}
       propertyPath: m_Name
