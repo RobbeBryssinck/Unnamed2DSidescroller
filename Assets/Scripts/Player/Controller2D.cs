@@ -66,10 +66,10 @@ public class Controller2D : MonoBehaviour
                 if (hit.collider.tag == "DeathZone" || hit.collider.tag == "Enemy")
                 {
                     collisions.isDamagedByEnemy = true;
-                    player.Die();
+                    player.TakeDamage(300f);
                     break;
                 }
-                // fix movement bug when inside other object
+                // fixes movement bug when inside other object
                 if (hit.distance == 0)
                 {
                     continue;
@@ -133,11 +133,11 @@ public class Controller2D : MonoBehaviour
                 }
                 if (hit.collider.tag == "Enemy" && directionY == -1 && collisions.isDamagedByEnemy == false)
                 {
-                    Enemy enemy = hit.collider.GetComponent<Enemy>();
+                    NPCController enemy = hit.collider.GetComponent<NPCController>();
                     if (enemy != null)
                     {
                         // TODO: Move damage value.
-                        enemy.TakeDamage(100);
+                        enemy.TakeDamage(100f);
                     }
                     collisions.killedEnemy = true;
                 }

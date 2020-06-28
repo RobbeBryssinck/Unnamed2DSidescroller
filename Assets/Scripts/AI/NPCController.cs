@@ -21,4 +21,11 @@ public abstract class NPCController : MonoBehaviour
     }
 
     protected abstract void MakeFSM();
+
+    public abstract void TakeDamage(float damage);
+
+    protected virtual void Die()
+    {
+        Destroy(gameObject);
+    }
 }

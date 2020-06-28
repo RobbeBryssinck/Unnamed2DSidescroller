@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// The NPC patrols certain waypoints.
+/// </summary>
 public class PatrolState : FSMState
 {
     private AIMovement aiMovement;
@@ -21,6 +24,9 @@ public class PatrolState : FSMState
 
     public override void Reason(GameObject player, GameObject npc)
     {
+        if (npc.GetComponent<NPCController>().Health <= 0f)
+            npc.GetComponent<NPCController>().SetTransition(Transition.NoHealth);
+
         if (Vector3.Distance(player.transform.position, npc.transform.position) <= 5.0f)
             npc.GetComponent<NPCController>().SetTransition(Transition.SawPlayer);
     }

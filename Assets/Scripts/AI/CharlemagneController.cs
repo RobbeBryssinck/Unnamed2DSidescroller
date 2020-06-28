@@ -22,4 +22,9 @@ public class CharlemagneController : NPCController
     {
         throw new NotImplementedException();
     }
+
+    public override void TakeDamage(float damage)
+    {
+        throw new NotImplementedException();
+    }
 }

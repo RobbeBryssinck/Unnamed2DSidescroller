@@ -113,7 +113,7 @@ public class Player : MonoBehaviour
         health -= damage;
         playerUIController.TakeDamage(damage);
 
-        if (health <= 0)
+        if (health <= 0f)
             Die();
     }
 

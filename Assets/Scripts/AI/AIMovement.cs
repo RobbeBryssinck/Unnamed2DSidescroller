@@ -8,7 +8,7 @@ public class AIMovement : MonoBehaviour
     private RaycastController rcController;
 
     [SerializeField]
-    private float moveSpeed;
+    private float moveSpeed = 2f;
 
     private float gravity;
 

@@ -3,6 +3,8 @@
 [RequireComponent(typeof(AIMovement))]
 public class MedievalSwordsmanController : NPCController
 {
+    public float chaseRange = 5.0f;
+
     [SerializeField]
     protected Vector3[] localWaypoints;
     Vector3[] globalWaypoints;
@@ -26,9 +28,11 @@ public class MedievalSwordsmanController : NPCController
     {
         PatrolState patrol = new PatrolState(globalWaypoints, gameObject);
         patrol.AddTransition(Transition.SawPlayer, StateID.Chasing);
+        patrol.AddTransition(Transition.NoHealth, StateID.Dead);
 
-        ChaseState chase = new ChaseState();
+        ChaseState chase = new ChaseState(chaseRange);
         chase.AddTransition(Transition.LostPlayer, StateID.Patrolling);
+        chase.AddTransition(Transition.NoHealth, StateID.Dead);
 
         fsm = new FSMSystem();
         fsm.AddState(patrol);
@@ -49,5 +53,10 @@ public class MedievalSwordsmanController : NPCController
                 Gizmos.DrawLine(globalWaypointPos - Vector3.left * size, globalWaypointPos + Vector3.left * size);
             }
         }
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        Health -= damage;
     }
 }
