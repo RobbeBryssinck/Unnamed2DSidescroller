@@ -1,24 +1,18 @@
 ﻿using UnityEngine;
 
-public class Fireball : MonoBehaviour
+public class Fireball : Weapon
 {
-    // Set layer, so no objects collide with themselves
-    public LayerMask collisionMask;
-
-    private RaycastController rcController;
-
     public float speed;
     public float newScale;
     public int direction;
-    public float damage;
 
     private Vector2 moveDistance;
     private CollisionInfo collisions;
 
     protected void Start()
     {
-        rcController = new RaycastController(GetComponent<BoxCollider2D>());
         SetScale(newScale);
+        rcController = new RaycastController(GetComponent<BoxCollider2D>());
     }
 
     private void SetScale(float newScale)
@@ -74,6 +68,11 @@ public class Fireball : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public override void HandleHit()
+    {
+        Destruct();
     }
 
     private struct CollisionInfo

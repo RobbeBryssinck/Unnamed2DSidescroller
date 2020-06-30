@@ -21,6 +21,8 @@ public class RaycastController
     public BoxCollider2D boxcollider;
     public RaycastOrigins raycastOrigins;
 
+    // TODO: CalculateRaySpacing() only gets called when creating the RaycastController.
+    // This means that the rayspacing will NOT be recalculated if the size of the object changes.
     public RaycastController(BoxCollider2D boxcollider)
     {
         this.boxcollider = boxcollider;

@@ -123,12 +123,12 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
-        playerUIController.RegenerateHealth();
         Respawn();
     }
 
     void Respawn()
     {
+        playerUIController.RegenerateHealth();
         transform.position = spawnPoint.transform.position;
         Health = initialHealth;
     }

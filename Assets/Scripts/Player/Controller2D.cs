@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Controller2D : MonoBehaviour
 {
@@ -63,17 +61,15 @@ public class Controller2D : MonoBehaviour
 
             if (hit)
             {
-                if (hit.collider.tag == "DeathZone" || hit.collider.tag == "Enemy")
+                if (hit.collider.tag == "DeathZone")
                 {
-                    collisions.isDamagedByEnemy = true;
-                    player.TakeDamage(300f);
+                    player.Die();
                     break;
                 }
+
                 // fixes movement bug when inside other object
                 if (hit.distance == 0)
-                {
                     continue;
-                }
 
                 float angle = Vector2.Angle(hit.normal, Vector2.up);
                 if (i == 0 && angle <= maxSlopeAngle)
@@ -131,17 +127,28 @@ public class Controller2D : MonoBehaviour
                     player.Die();
                     break;
                 }
+
+                if (hit.collider.tag == "Weapon")
+                {
+                    Weapon weapon = hit.collider.GetComponent<Weapon>();
+                    if (weapon != null)
+                    {
+                        weapon.HandleHit();
+                        collisions.killedEnemy = true;
+                    }
+                }
+
                 if (hit.collider.tag == "Enemy" && directionY == -1 && collisions.isDamagedByEnemy == false)
                 {
                     NPCController enemy = hit.collider.GetComponent<NPCController>();
                     if (enemy != null)
                     {
-                        // TODO: Move damage value.
-                        enemy.TakeDamage(100f);
+                        enemy.Die();
+                        collisions.killedEnemy = true;
                     }
-                    collisions.killedEnemy = true;
                     break;
                 }
+
                 else
                 {
                     if (hit.collider.tag == "Through")

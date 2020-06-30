@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerUIController : MonoBehaviour
 {
-     PlayerUIHealth hearts;
+    PlayerUIHealth hearts;
 
     private void Start()
     {
