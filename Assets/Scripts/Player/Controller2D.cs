@@ -144,7 +144,7 @@ public class Controller2D : MonoBehaviour
                     if (enemy != null)
                     {
                         enemy.HandleHit();
-                        collisions.hitEnemyOnTop = false;
+                        collisions.hitEnemyOnTop = true;
                     }
                     break;
                 }

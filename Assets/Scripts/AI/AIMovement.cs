@@ -31,6 +31,7 @@ public class AIMovement : MonoBehaviour
         rcController.UpdateRaycastOrigins();
         collisions.Reset();
 
+        CalculateVelocity();
         CalculateHorizontalMovement();
         CalculateVerticalMovement();
         transform.Translate(moveDistance);
@@ -44,11 +45,19 @@ public class AIMovement : MonoBehaviour
             GetComponent<SpriteRenderer>().flipX = false;
     }
 
+    private void CalculateVelocity()
+    {
+        float directionX = Mathf.Sign(destination.x - transform.position.x);
+        moveDistance.x = directionX * moveSpeed * Time.deltaTime;
+
+        velocity.y += gravity * Time.deltaTime;
+        moveDistance.y = velocity.y * Time.deltaTime;
+    }
+
     // TODO: put destination in calculate parameters
     private void CalculateHorizontalMovement()
     {
         float directionX = Mathf.Sign(destination.x - transform.position.x);
-        moveDistance.x = directionX * moveSpeed * Time.deltaTime;
         float rayLength = Mathf.Abs(moveDistance.x) + RaycastController.skinWidth;
 
         for (int i = 0; i < rcController.horizontalRayCount; i++)
@@ -69,9 +78,6 @@ public class AIMovement : MonoBehaviour
 
     private void CalculateVerticalMovement()
     {
-        velocity.y += gravity * Time.deltaTime;
-        moveDistance.y = velocity.y * Time.deltaTime;
-
         float directionY = Mathf.Sign(moveDistance.y);
         float rayLength = Mathf.Abs(moveDistance.y) + RaycastController.skinWidth;
 
@@ -99,6 +105,7 @@ public class AIMovement : MonoBehaviour
         rcController.UpdateRaycastOrigins();
         collisions.Reset();
 
+        CalculateVelocity();
         CalculateVerticalMovement();
         moveDistance.x = 0;
         transform.Translate(moveDistance);

@@ -49,7 +49,7 @@ public class MedievalSwordsmanController : NPCController
 
     public override void HandleHit()
     {
-        TakeDamage(0f);
+        TakeDamage(100f);
     }
 
     private void OnDrawGizmos()
