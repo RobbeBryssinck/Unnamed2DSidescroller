@@ -44,10 +44,27 @@ public class AIMovement : MonoBehaviour
             GetComponent<SpriteRenderer>().flipX = false;
     }
 
+    // TODO: put destination in calculate parameters
     private void CalculateHorizontalMovement()
     {
         float directionX = Mathf.Sign(destination.x - transform.position.x);
         moveDistance.x = directionX * moveSpeed * Time.deltaTime;
+        float rayLength = Mathf.Abs(moveDistance.x) + RaycastController.skinWidth;
+
+        for (int i = 0; i < rcController.horizontalRayCount; i++)
+        {
+            Vector2 rayOrigin = (directionX == -1) ? rcController.raycastOrigins.bottomLeft : rcController.raycastOrigins.bottomRight;
+            rayOrigin += Vector2.up * rcController.horizontalRaySpacing * i;
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask);
+
+            Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
+
+            if (hit)
+            {
+                moveDistance.x = (hit.distance - RaycastController.skinWidth) * directionX;
+                rayLength = hit.distance;
+            }
+        }
     }
 
     private void CalculateVerticalMovement()

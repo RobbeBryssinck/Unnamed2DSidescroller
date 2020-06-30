@@ -108,7 +108,7 @@ public class Player : MonoBehaviour
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? maxVelocityTimeGround : maxVelocityTimeAir);
         velocity.y += gravity * Time.deltaTime;
 
-        if (controller.collisions.killedEnemy)
+        if (controller.collisions.hitEnemyOnTop)
             velocity.y = 15;
     }
 

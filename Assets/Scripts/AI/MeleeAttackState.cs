@@ -18,6 +18,9 @@ public class MeleeAttackState : FSMState
 
     public override void Reason(GameObject player, GameObject npc)
     {
+        if (npc.GetComponent<NPCController>().Health <= 0f)
+            npc.GetComponent<NPCController>().SetTransition(Transition.NoHealth);
+
         if (switchTimeLeft <= 0)
             npc.GetComponent<NPCController>().SetTransition(Transition.DoneMeleeAttack);
     }

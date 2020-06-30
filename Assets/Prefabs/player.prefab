@@ -126,7 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 1536
   maxSlopeAngle: 80
   playerInput: {x: 0, y: 0}
 --- !u!114 &8974742763643363349
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 923e1e5c2a32744459fdabb0197009ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 300
+  initialHealth: 300
   maxJumpHeight: 4
   minJumpHeight: 0.5
   timeToMaxJumpHeight: 0.4

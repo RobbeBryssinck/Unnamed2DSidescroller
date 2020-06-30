@@ -125,7 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 768
   moveSpeed: 2
 --- !u!114 &-3110779268244219159
 MonoBehaviour:

@@ -134,7 +134,7 @@ public class Controller2D : MonoBehaviour
                     if (weapon != null)
                     {
                         weapon.HandleHit();
-                        collisions.killedEnemy = true;
+                        collisions.hitEnemyOnTop = true;
                     }
                 }
 
@@ -143,8 +143,8 @@ public class Controller2D : MonoBehaviour
                     NPCController enemy = hit.collider.GetComponent<NPCController>();
                     if (enemy != null)
                     {
-                        enemy.Die();
-                        collisions.killedEnemy = true;
+                        enemy.HandleHit();
+                        collisions.hitEnemyOnTop = false;
                     }
                     break;
                 }
@@ -300,7 +300,7 @@ public class Controller2D : MonoBehaviour
         public Vector2 moveDistanceOld;
         public bool fallingThroughPlatform;
 
-        public bool killedEnemy;
+        public bool hitEnemyOnTop;
         // TODO: fix this suboptimal solution
         public bool isDamagedByEnemy;
 
@@ -316,7 +316,7 @@ public class Controller2D : MonoBehaviour
             angleOld = angle;
             angle = 0;
 
-            killedEnemy = false;
+            hitEnemyOnTop = false;
             isDamagedByEnemy = false;
         }
     }

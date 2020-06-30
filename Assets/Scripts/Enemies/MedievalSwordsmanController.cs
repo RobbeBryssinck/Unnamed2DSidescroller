@@ -47,6 +47,11 @@ public class MedievalSwordsmanController : NPCController
         base.TakeDamage(damage);
     }
 
+    public override void HandleHit()
+    {
+        TakeDamage(0f);
+    }
+
     private void OnDrawGizmos()
     {
         if (localWaypoints != null)

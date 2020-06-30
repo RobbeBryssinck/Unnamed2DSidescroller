@@ -32,4 +32,6 @@ public abstract class NPCController : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    public abstract void HandleHit();
 }

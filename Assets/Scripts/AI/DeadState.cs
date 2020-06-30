@@ -13,10 +13,10 @@ public class DeadState : FSMState
 
     public override void Reason(GameObject player, GameObject npc)
     {
-        npc.GetComponent<MedievalSwordsmanController>().Die();
     }
 
     public override void Act(GameObject player, GameObject npc)
     {
+        npc.GetComponent<NPCController>().Die();
     }
 }
