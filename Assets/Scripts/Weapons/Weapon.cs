@@ -9,5 +9,5 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField]
     protected float damage;
 
-    public abstract void HandleHit();
+    public virtual void HandleHit() { }
 }

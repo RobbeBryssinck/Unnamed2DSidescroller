@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8676582571074549276}
   - component: {fileID: 1964341250949613865}
   - component: {fileID: 2015310603}
+  - component: {fileID: 2015310607}
   m_Layer: 10
   m_Name: Charlemagne
   m_TagString: Enemy
@@ -123,6 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd9892bd8ccedff4fb3fc0aafac59bd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxShots: 3
 --- !u!114 &2015310603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,3 +138,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 2648150642304957173, guid: be899f9092974404383dc350e6e54917, type: 3}
+--- !u!114 &2015310607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2304019658297677424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3df8933a7f3d30142b35f8bf1365c3a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 512
+  moveSpeed: 2
