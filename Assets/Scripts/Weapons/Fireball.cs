@@ -56,8 +56,6 @@ public class Fireball : MonoBehaviour
 
             if (hit)
             {
-                // TODO: maybe find a way to combine these two, since they are nearly identical?
-                // Not necessary, just an idea.
                 if (hit.collider.tag == "Enemy")
                 {
                     NPCController enemy = hit.collider.GetComponent<NPCController>();
@@ -73,6 +71,7 @@ public class Fireball : MonoBehaviour
                 }
 
                 Destruct();
+                break;
             }
         }
     }

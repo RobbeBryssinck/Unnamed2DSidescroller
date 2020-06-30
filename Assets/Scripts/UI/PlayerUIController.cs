@@ -16,4 +16,9 @@ public class PlayerUIController : MonoBehaviour
     {
         hearts.TakeDamage(damage);
     }
+
+    public void RegenerateHealth()
+    {
+        hearts.RegenerateHealth();
+    }
 }

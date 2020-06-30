@@ -9,7 +9,9 @@ public class Player : MonoBehaviour
 {
     #region properties
 
-    public float health = 300;
+    public float Health { get; private set; }
+    
+    public float initialHealth = 300f;
     public float maxJumpHeight = 4;
     public float minJumpHeight = 0.5f;
     public float timeToMaxJumpHeight = .4f;
@@ -37,6 +39,8 @@ public class Player : MonoBehaviour
         gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToMaxJumpHeight, 2);
         maxJumpVelocity = (2 * maxJumpHeight) / timeToMaxJumpHeight;
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
+
+        Health = initialHealth;
 
         spawnPoint = GameObject.Find("SpawnPoint").GetComponent<SpawnPoint>();
         transform.position = spawnPoint.transform.position;
@@ -110,21 +114,22 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        health -= damage;
+        Health -= damage;
         playerUIController.TakeDamage(damage);
 
-        if (health <= 0f)
+        if (Health <= 0f)
             Die();
     }
 
     public void Die()
     {
+        playerUIController.RegenerateHealth();
         Respawn();
     }
 
     void Respawn()
     {
-        Vector3 spawnPoint = GameObject.Find("SpawnPoint").GetComponent<SpawnPoint>().spawnPoint;
-        transform.position = spawnPoint;
+        transform.position = spawnPoint.transform.position;
+        Health = initialHealth;
     }
 }

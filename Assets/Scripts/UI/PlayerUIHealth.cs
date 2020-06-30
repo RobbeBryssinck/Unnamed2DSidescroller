@@ -9,13 +9,13 @@ public class PlayerUIHealth : MonoBehaviour
     List<Transform> hearts;
     int heartIndex;
     int maxHearts;
-    // somehow make hearts generate based on amount of health put in in the player class
+    // TODO: somehow make hearts generate based on amount of health put in in the player class
     float health;
 
     private void Start()
     {
         heartIndex = 0;
-        health = GameObject.Find("player").GetComponent<Player>().health;
+        health = GameObject.Find("player").GetComponent<Player>().Health;
 
         hearts = new List<Transform>();
         for (int i = 0; i < transform.childCount; i++)
@@ -30,7 +30,6 @@ public class PlayerUIHealth : MonoBehaviour
     {
         hearts[heartIndex].GetComponent<Image>().enabled = false;
         heartIndex += 1;
-        health -= damage;
 
         //TODO: put in a real death handler here
         if (heartIndex == maxHearts)
