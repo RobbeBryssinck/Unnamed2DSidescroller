@@ -2,6 +2,8 @@
 
 public abstract class NPCController : MonoBehaviour
 {
+    public Animator animator;
+
     protected GameObject player;
     protected FSMSystem fsm;
 

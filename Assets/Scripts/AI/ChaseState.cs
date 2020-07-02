@@ -28,5 +28,8 @@ public class ChaseState : FSMState
     {
         aiMovement = npc.GetComponent<AIMovement>();
         aiMovement.Move(player.transform.position);
+
+        if (aiMovement.collisions.touchedPlayerHorizontally)
+            npc.GetComponent<NPCController>().animator.SetTrigger("TouchPlayerHorizontally");
     }
 }

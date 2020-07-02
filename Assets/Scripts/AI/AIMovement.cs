@@ -15,7 +15,7 @@ public class AIMovement : MonoBehaviour
     private Vector2 velocity;
     private Vector2 moveDistance;
     private Vector3 destination;
-    private Collisions collisions;
+    public Collisions collisions;
 
     private void Start()
     {
@@ -72,6 +72,11 @@ public class AIMovement : MonoBehaviour
             {
                 moveDistance.x = (hit.distance - RaycastController.skinWidth) * directionX;
                 rayLength = hit.distance;
+
+                if (hit.collider.tag == "Player")
+                {
+                    collisions.touchedPlayerHorizontally = true;
+                }
             }
         }
     }
@@ -117,11 +122,13 @@ public class AIMovement : MonoBehaviour
     public struct Collisions
     {
         public bool below, above;
+        public bool touchedPlayerHorizontally;
 
         public void Reset()
         {
             below = false;
             above = false;
+            touchedPlayerHorizontally = false;
         }
     }
 }
