@@ -25,18 +25,18 @@ public class CharlemagneController : NPCController
     protected override void MakeFSM()
     {
         ShootFireballState shootFireball = new ShootFireballState(gameObject, 3, 0.3f);
-        shootFireball.AddTransition(Transition.DoneShootingFireballs, StateID.MeleeAttack);
+        shootFireball.AddTransition(Transition.DoneShootingFireballs, StateID.Waiting);
         shootFireball.AddTransition(Transition.NoHealth, StateID.Dead);
 
-        MeleeAttackState meleeAttack = new MeleeAttackState();
-        meleeAttack.AddTransition(Transition.DoneMeleeAttack, StateID.ShootingFireballs);
-        meleeAttack.AddTransition(Transition.NoHealth, StateID.Dead);
+        WaitState wait = new WaitState(5.0f);
+        wait.AddTransition(Transition.DoneWaiting, StateID.ShootingFireballs);
+        wait.AddTransition(Transition.NoHealth, StateID.Dead);
 
         DeadState dead = new DeadState();
 
         fsm = new FSMSystem();
         fsm.AddState(shootFireball);
-        fsm.AddState(meleeAttack);
+        fsm.AddState(wait);
         fsm.AddState(dead);
     }
 

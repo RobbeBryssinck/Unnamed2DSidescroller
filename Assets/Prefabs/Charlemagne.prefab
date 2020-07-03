@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd9892bd8ccedff4fb3fc0aafac59bd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   maxShots: 3
 --- !u!114 &2015310603
 MonoBehaviour:
@@ -137,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 798baf098f5dd0542be49349657923cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 2648150642304957173, guid: be899f9092974404383dc350e6e54917, type: 3}
+  weapon: {fileID: 3466704875409043659, guid: be899f9092974404383dc350e6e54917, type: 3}
 --- !u!114 &2015310607
 MonoBehaviour:
   m_ObjectHideFlags: 0
