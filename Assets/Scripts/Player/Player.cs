@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
         PlayerCombatState playerCombat = new PlayerCombatState(gameObject);
         playerCombat.AddTransition(Transition.PlayerHit, StateID.Invulnerable);
 
-        InvulnerableState invulnerable = new InvulnerableState(5.0f, gameObject);
+        InvulnerableState invulnerable = new InvulnerableState(1.0f, gameObject);
         invulnerable.AddTransition(Transition.DoneInvulnerable, StateID.PlayerCombat);
 
         fsm = new FSMSystem();
