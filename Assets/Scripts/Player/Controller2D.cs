@@ -143,7 +143,7 @@ public class Controller2D : MonoBehaviour
                     NPCController enemy = hit.collider.GetComponent<NPCController>();
                     if (enemy != null)
                     {
-                        enemy.HandleHit();
+                        enemy.HandleHit(100f);
                         collisions.hitEnemyOnTop = true;
                     }
                     break;

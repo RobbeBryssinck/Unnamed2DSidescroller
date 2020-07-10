@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Sprite-OakTree1
+  m_Name: TreePineMedium_0
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 2676392997346160987, guid: 798880be2a2eb8940beb80d11a2d1bdf,
+  m_Sprite: {fileID: -8152879194634685524, guid: 58caa29df0ec6854bbe8dca32adc60da,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:

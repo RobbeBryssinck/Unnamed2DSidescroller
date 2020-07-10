@@ -45,8 +45,8 @@ public class CharlemagneController : NPCController
         base.TakeDamage(damage);
     }
 
-    public override void HandleHit()
+    public override void HandleHit(float damage)
     {
-        TakeDamage(100f);
+        TakeDamage(damage);
     }
 }

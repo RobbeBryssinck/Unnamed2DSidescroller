@@ -47,9 +47,9 @@ public class MedievalSwordsmanController : NPCController
         base.TakeDamage(damage);
     }
 
-    public override void HandleHit()
+    public override void HandleHit(float damage)
     {
-        TakeDamage(100f);
+        TakeDamage(damage);
     }
 
     private void OnDrawGizmos()

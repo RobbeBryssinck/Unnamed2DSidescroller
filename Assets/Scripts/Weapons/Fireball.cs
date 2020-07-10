@@ -54,14 +54,14 @@ public class Fireball : Weapon
                 {
                     NPCController enemy = hit.collider.GetComponent<NPCController>();
                     if (enemy != null)
-                        enemy.TakeDamage(damage);
+                        enemy.HandleHit(damage);
                 }
 
                 if (hit.collider.tag == "Player")
                 {
                     Player player = hit.collider.GetComponent<Player>();
                     if (player != null)
-                        player.TakeDamage(damage);
+                        player.HandleHit(damage);
                 }
 
                 Destruct();

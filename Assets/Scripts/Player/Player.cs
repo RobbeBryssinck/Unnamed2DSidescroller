@@ -26,14 +26,20 @@ public class Player : MonoBehaviour
     float minJumpVelocity;
     Vector2 velocity;
     float velocityXSmoothing;
+    public bool isHit;
 
     Controller2D controller;
     SpawnPoint spawnPoint;
     Vector2 directionalInput;
     PlayerUIController playerUIController;
+    private FSMSystem fsm;
+
+    public void SetTransition(Transition t) { fsm.PerformTransition(t); }
 
     void Start()
     {
+        isHit = false;
+
         controller = GetComponent<Controller2D>();
 
         gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToMaxJumpHeight, 2);
@@ -45,6 +51,21 @@ public class Player : MonoBehaviour
         spawnPoint = GameObject.Find("SpawnPoint").GetComponent<SpawnPoint>();
         transform.position = spawnPoint.transform.position;
         playerUIController = GameObject.Find("PlayerUI").GetComponent<PlayerUIController>();
+
+        MakeFSM();
+    }
+
+    private void MakeFSM()
+    {
+        PlayerCombatState playerCombat = new PlayerCombatState(gameObject);
+        playerCombat.AddTransition(Transition.PlayerHit, StateID.Invulnerable);
+
+        InvulnerableState invulnerable = new InvulnerableState(5.0f, gameObject);
+        invulnerable.AddTransition(Transition.DoneInvulnerable, StateID.PlayerCombat);
+
+        fsm = new FSMSystem();
+        fsm.AddState(playerCombat);
+        fsm.AddState(invulnerable);
     }
 
     public void SetDirectionalInput(Vector2 input)
@@ -89,6 +110,9 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        fsm.CurrentState.Reason(gameObject, null);
+        fsm.CurrentState.Act(gameObject, null);
+
         CalculateVelocity();
 
         controller.Move(velocity * Time.deltaTime, directionalInput);
@@ -112,7 +136,16 @@ public class Player : MonoBehaviour
             velocity.y = 15;
     }
 
-    public void TakeDamage(float damage)
+    public void HandleHit(float damage)
+    {
+        if (!isHit)
+        {
+            isHit = true;
+            TakeDamage(damage);
+        }
+    }
+
+    private void TakeDamage(float damage)
     {
         Health -= damage;
         playerUIController.TakeDamage(damage);

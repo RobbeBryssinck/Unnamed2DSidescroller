@@ -16,6 +16,8 @@ public enum Transition
     DoneMeleeAttack,
     NoHealth,
     DoneWaiting,
+    PlayerHit,
+    DoneInvulnerable,
 }
 
 /// <summary>
@@ -31,6 +33,8 @@ public enum StateID
     ShootingFireballs,
     Dead,
     Waiting,
+    Invulnerable,
+    PlayerCombat,
 }
 
 /// <summary>
