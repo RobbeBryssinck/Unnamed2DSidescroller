@@ -1,6 +1,6 @@
 ﻿public class FrogGreenController : NPCController
 {
-    private float timeBetweenJumps = 4.0f;
+    private float timeBetweenJumps = 2.0f;
 
     protected override void Start()
     {

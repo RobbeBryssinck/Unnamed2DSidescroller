@@ -86,9 +86,10 @@ public class AIMovement : MonoBehaviour
                 rayLength = hit.distance;
 
                 if (hit.collider.tag == "Player")
-                {
                     collisions.touchedPlayerHorizontally = true;
-                }
+
+                collisions.left = DirectionX == -1;
+                collisions.right = DirectionX == 1;
             }
         }
     }
@@ -134,12 +135,13 @@ public class AIMovement : MonoBehaviour
     public struct Collisions
     {
         public bool below, above;
+        public bool left, right;
         public bool touchedPlayerHorizontally;
 
         public void Reset()
         {
-            below = false;
-            above = false;
+            below = above = false;
+            left = right = false;
             touchedPlayerHorizontally = false;
         }
     }

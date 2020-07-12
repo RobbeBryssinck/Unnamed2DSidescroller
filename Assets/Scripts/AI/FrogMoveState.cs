@@ -7,6 +7,7 @@ public class FrogMoveState : FSMState
     private Vector2 velocity;
     private float timeBetweenJumps;
     private float timeBetweenJumpsLeft;
+    private bool turnOnNextJump = false;
 
     public FrogMoveState(GameObject npc, float timeBetweenJumps)
     {
@@ -27,6 +28,12 @@ public class FrogMoveState : FSMState
     {
         if (timeBetweenJumpsLeft <= 0f && aiMovement.collisions.below)
         {
+            if (turnOnNextJump)
+            {
+                aiMovement.DirectionX = -aiMovement.DirectionX;
+                turnOnNextJump = false;
+            }
+
             timeBetweenJumpsLeft = timeBetweenJumps;
             velocity = aiMovement.CalculateJumpVelocity();
             velocity = aiMovement.CalculateVelocity();
@@ -42,6 +49,9 @@ public class FrogMoveState : FSMState
         {
             velocity = aiMovement.CalculateVelocity();
             aiMovement.Move(velocity * Time.deltaTime);
-        }    
+        }
+
+        if (aiMovement.collisions.left || aiMovement.collisions.right)
+            turnOnNextJump = true;
     }
 }
