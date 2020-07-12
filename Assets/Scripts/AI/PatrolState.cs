@@ -36,7 +36,9 @@ public class PatrolState : FSMState
         if (Vector3.Distance(npc.transform.position, destination) <= 0.2f)
             FindNextPoint();
 
-        aiMovement.Move(destination);
+        Vector2 velocity = aiMovement.CalculateVelocity();
+        aiMovement.Move(velocity * Time.deltaTime);
+        aiMovement.SetDirection(destination);
     }
 
     private void FindNextPoint()

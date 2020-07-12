@@ -38,7 +38,7 @@ public class AIMovement : MonoBehaviour
 
         CalculateHorizontalMovement();
         CalculateVerticalMovement();
-        transform.Translate(moveDistance);
+        transform.Translate(this.moveDistance);
 
         if (collisions.above || collisions.below)
             velocity.y = 0;
@@ -59,6 +59,11 @@ public class AIMovement : MonoBehaviour
     public void CalculateJumpVelocity()
     {
         velocity.y = jumpVelocity;
+    }
+
+    public void SetDirection(Vector2 destination)
+    {
+        DirectionX = Mathf.Sign(destination.x - transform.position.x);
     }
 
     // TODO: put destination in calculate parameters

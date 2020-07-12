@@ -30,7 +30,7 @@ public class MedievalSwordsmanController : NPCController
         patrol.AddTransition(Transition.SawPlayer, StateID.Chasing);
         patrol.AddTransition(Transition.NoHealth, StateID.Dead);
 
-        ChaseState chase = new ChaseState(chaseRange);
+        ChaseState chase = new ChaseState(chaseRange, gameObject);
         chase.AddTransition(Transition.LostPlayer, StateID.Patrolling);
         chase.AddTransition(Transition.NoHealth, StateID.Dead);
 

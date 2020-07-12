@@ -9,10 +9,11 @@ public class ChaseState : FSMState
 
     private AIMovement aiMovement;
 
-    public ChaseState(float chaseRange)
+    public ChaseState(float chaseRange, GameObject npc)
     {
         stateID = StateID.Chasing;
         this.chaseRange = chaseRange;
+        aiMovement = npc.GetComponent<AIMovement>();
     }
 
     public override void Reason(GameObject player, GameObject npc)
@@ -26,10 +27,12 @@ public class ChaseState : FSMState
 
     public override void Act(GameObject player, GameObject npc)
     {
-        aiMovement = npc.GetComponent<AIMovement>();
-        aiMovement.Move(player.transform.position);
+        Vector2 velocity = aiMovement.CalculateVelocity();
+        aiMovement.Move(velocity * Time.deltaTime);
 
         if (aiMovement.collisions.touchedPlayerHorizontally)
             npc.GetComponent<NPCController>().animator.SetTrigger("TouchPlayerHorizontally");
+
+        aiMovement.SetDirection(player.transform.position);
     }
 }
