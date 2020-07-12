@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     float minJumpVelocity;
     Vector2 velocity;
     float velocityXSmoothing;
+    [HideInInspector]
     public bool isHit;
 
     Controller2D controller;

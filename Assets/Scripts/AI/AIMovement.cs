@@ -9,8 +9,11 @@ public class AIMovement : MonoBehaviour
 
     [SerializeField]
     private float moveSpeed = 2f;
+    private float jumpHeight = 4.0f;
+    private float timeToJumpHeight = 0.4f;
 
     private float gravity;
+    private float jumpVelocity;
 
     private Vector2 velocity;
     private Vector2 moveDistance;
@@ -21,7 +24,8 @@ public class AIMovement : MonoBehaviour
     {
         rcController = new RaycastController(GetComponent<BoxCollider2D>());
 
-        gravity = -10f;
+        gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJumpHeight, 2);
+        jumpVelocity = (2 * jumpHeight) / timeToJumpHeight;
     }
 
     public void Move(Vector3 destination)
@@ -45,6 +49,13 @@ public class AIMovement : MonoBehaviour
             GetComponent<SpriteRenderer>().flipX = false;
     }
 
+    public void Move(Vector3 destination, bool jump)
+    {
+        if (jump)
+            CalculateJumpVelocity();
+        Move(destination);
+    }
+
     private void CalculateVelocity()
     {
         float directionX = Mathf.Sign(destination.x - transform.position.x);
@@ -52,6 +63,11 @@ public class AIMovement : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         moveDistance.y = velocity.y * Time.deltaTime;
+    }
+
+    private void CalculateJumpVelocity()
+    {
+        velocity.y = jumpVelocity;
     }
 
     // TODO: put destination in calculate parameters
