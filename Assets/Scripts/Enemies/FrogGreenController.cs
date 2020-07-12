@@ -1,9 +1,6 @@
 ﻿public class FrogGreenController : NPCController
 {
     private float timeBetweenJumps = 4.0f;
-    private float jumpHeight = 4.0f;
-    private float timeToJumpHeight = 0.4f;
-    private float moveSpeed = 4f;
 
     protected override void Start()
     {
@@ -26,7 +23,7 @@
 
     protected override void MakeFSM()
     {
-        FrogMoveState frogMove = new FrogMoveState(gameObject, timeBetweenJumps, jumpHeight, timeToJumpHeight, moveSpeed);
+        FrogMoveState frogMove = new FrogMoveState(gameObject, timeBetweenJumps);
         frogMove.AddTransition(Transition.NoHealth, StateID.Dead);
 
         DeadState dead = new DeadState();

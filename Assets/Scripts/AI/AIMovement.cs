@@ -56,9 +56,10 @@ public class AIMovement : MonoBehaviour
         return velocity;
     }
 
-    public void CalculateJumpVelocity()
+    public Vector2 CalculateJumpVelocity()
     {
         velocity.y = jumpVelocity;
+        return velocity;
     }
 
     public void SetDirection(Vector2 destination)

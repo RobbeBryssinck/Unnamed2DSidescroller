@@ -17,7 +17,7 @@ public abstract class NPCController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
     }
     
-    protected virtual void FixedUpdate()
+    protected virtual void Update()
     {
         fsm.CurrentState.Reason(player, gameObject);
         fsm.CurrentState.Act(player, gameObject);

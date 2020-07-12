@@ -8,20 +8,13 @@ public class FrogMoveState : FSMState
     private float timeBetweenJumps;
     private float timeBetweenJumpsLeft;
 
-    private float gravity;
-    private float jumpVelocity;
-
-    public FrogMoveState(GameObject npc, float timeBetweenJumps, float jumpHeight, float timeToJumpHeight, float moveSpeed)
+    public FrogMoveState(GameObject npc, float timeBetweenJumps)
     {
         stateID = StateID.FrogMoving;
         npcController = npc.GetComponent<NPCController>();
         aiMovement = npc.GetComponent<AIMovement>();
         this.timeBetweenJumps = timeBetweenJumps;
-        timeBetweenJumpsLeft = timeBetweenJumps;
-
-        velocity.x = moveSpeed;
-        gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJumpHeight, 2);
-        jumpVelocity = (2 * jumpHeight) / timeToJumpHeight;
+        timeBetweenJumpsLeft = 0f;
     }
 
     public override void Reason(GameObject player, GameObject npc)
@@ -32,16 +25,23 @@ public class FrogMoveState : FSMState
 
     public override void Act(GameObject player, GameObject npc)
     {
-        if (timeBetweenJumpsLeft >= 0f && aiMovement.collisions.below)
+        if (timeBetweenJumpsLeft <= 0f && aiMovement.collisions.below)
         {
-            timeBetweenJumpsLeft -= Time.deltaTime;
+            timeBetweenJumpsLeft = timeBetweenJumps;
+            velocity = aiMovement.CalculateJumpVelocity();
             velocity = aiMovement.CalculateVelocity();
             aiMovement.Move(velocity * Time.deltaTime);
-            return;
         }
 
-        timeBetweenJumpsLeft = timeBetweenJumps;
+        else if (timeBetweenJumpsLeft >= 0f && aiMovement.collisions.below)
+        {
+            timeBetweenJumpsLeft -= Time.deltaTime;
+        }
 
-        velocity.y = jumpVelocity;
+        else if (!aiMovement.collisions.below)
+        {
+            velocity = aiMovement.CalculateVelocity();
+            aiMovement.Move(velocity * Time.deltaTime);
+        }    
     }
 }

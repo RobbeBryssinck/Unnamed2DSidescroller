@@ -16,9 +16,9 @@ public class CharlemagneController : NPCController
         MakeFSM();
     }
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
-        base.FixedUpdate();
+        base.Update();
         aiMovement.SimulateGravity();
     }
 
