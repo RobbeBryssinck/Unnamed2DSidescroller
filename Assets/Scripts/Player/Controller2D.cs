@@ -149,6 +149,9 @@ public class Controller2D : MonoBehaviour
                     break;
                 }
 
+                if (hit.collider.tag == "Bounce")
+                    player.VelocityY = 20f;
+
                 else
                 {
                     if (hit.collider.tag == "Through")

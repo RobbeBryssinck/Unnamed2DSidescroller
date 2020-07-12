@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     #region properties
 
     public float Health { get; private set; }
+    public float VelocityY { get { return velocity.y; } set { velocity.y = value; }  }
     
     public float initialHealth = 300f;
     public float maxJumpHeight = 4;
