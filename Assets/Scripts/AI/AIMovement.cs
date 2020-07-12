@@ -12,12 +12,13 @@ public class AIMovement : MonoBehaviour
     private float jumpHeight = 4.0f;
     private float timeToJumpHeight = 0.4f;
 
+    public float DirectionX { get; set; } = -1f;
+
     private float gravity;
     private float jumpVelocity;
 
     private Vector2 velocity;
     private Vector2 moveDistance;
-    private Vector3 destination;
     public Collisions collisions;
 
     private void Start()
@@ -28,14 +29,13 @@ public class AIMovement : MonoBehaviour
         jumpVelocity = (2 * jumpHeight) / timeToJumpHeight;
     }
 
-    public void Move(Vector3 destination)
+    public void Move(Vector3 moveDistance)
     {
-        this.destination = destination;
+        this.moveDistance = moveDistance;
 
         rcController.UpdateRaycastOrigins();
         collisions.Reset();
 
-        CalculateVelocity();
         CalculateHorizontalMovement();
         CalculateVerticalMovement();
         transform.Translate(moveDistance);
@@ -49,23 +49,14 @@ public class AIMovement : MonoBehaviour
             GetComponent<SpriteRenderer>().flipX = false;
     }
 
-    public void Move(Vector3 destination, bool jump)
+    public Vector2 CalculateVelocity()
     {
-        if (jump)
-            CalculateJumpVelocity();
-        Move(destination);
-    }
-
-    private void CalculateVelocity()
-    {
-        float directionX = Mathf.Sign(destination.x - transform.position.x);
-        moveDistance.x = directionX * moveSpeed * Time.deltaTime;
-
+        velocity.x = moveSpeed * DirectionX;
         velocity.y += gravity * Time.deltaTime;
-        moveDistance.y = velocity.y * Time.deltaTime;
+        return velocity;
     }
 
-    private void CalculateJumpVelocity()
+    public void CalculateJumpVelocity()
     {
         velocity.y = jumpVelocity;
     }
@@ -73,20 +64,19 @@ public class AIMovement : MonoBehaviour
     // TODO: put destination in calculate parameters
     private void CalculateHorizontalMovement()
     {
-        float directionX = Mathf.Sign(destination.x - transform.position.x);
         float rayLength = Mathf.Abs(moveDistance.x) + RaycastController.skinWidth;
 
         for (int i = 0; i < rcController.horizontalRayCount; i++)
         {
-            Vector2 rayOrigin = (directionX == -1) ? rcController.raycastOrigins.bottomLeft : rcController.raycastOrigins.bottomRight;
+            Vector2 rayOrigin = (DirectionX == -1) ? rcController.raycastOrigins.bottomLeft : rcController.raycastOrigins.bottomRight;
             rayOrigin += Vector2.up * rcController.horizontalRaySpacing * i;
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask);
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * DirectionX, rayLength, collisionMask);
 
-            Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
+            Debug.DrawRay(rayOrigin, Vector2.right * DirectionX, Color.red);
 
             if (hit)
             {
-                moveDistance.x = (hit.distance - RaycastController.skinWidth) * directionX;
+                moveDistance.x = (hit.distance - RaycastController.skinWidth) * DirectionX;
                 rayLength = hit.distance;
 
                 if (hit.collider.tag == "Player")
