@@ -287,11 +287,6 @@ public class Controller2D : MonoBehaviour
         collisions.fallingThroughPlatform = false;
     }
 
-    void PlayerDie()
-    {
-        player.Die();
-    }
-
     public struct CollisionInfo
     {
         public bool above, below;

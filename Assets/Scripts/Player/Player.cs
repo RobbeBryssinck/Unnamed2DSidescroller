@@ -20,6 +20,11 @@ public class Player : MonoBehaviour
     float maxVelocityTimeGround = .1f;
     float moveSpeed = 6;
 
+    [SerializeField]
+    private Vector2 bcRight;
+    [SerializeField]
+    private Vector2 bcLeft;
+
     #endregion
 
     float gravity;
@@ -76,10 +81,12 @@ public class Player : MonoBehaviour
         if (input == Vector2.right)
         {
             GetComponent<SpriteRenderer>().flipX = false;
+            GetComponent<BoxCollider2D>().offset = bcRight;
         }
         if (input == Vector2.left)
         {
             GetComponent<SpriteRenderer>().flipX = true;
+            GetComponent<BoxCollider2D>().offset = bcLeft;
         }
     }
 
