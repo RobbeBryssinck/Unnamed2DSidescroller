@@ -71,6 +71,9 @@ public class Controller2D : MonoBehaviour
                 if (hit.distance == 0)
                     continue;
 
+                if (hit.collider.tag == "Enemy")
+                    player.HandleHit(100f);
+
                 float angle = Vector2.Angle(hit.normal, Vector2.up);
                 if (i == 0 && angle <= maxSlopeAngle)
                 {

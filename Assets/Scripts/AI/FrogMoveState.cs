@@ -54,5 +54,8 @@ public class FrogMoveState : FSMState
 
         if (aiMovement.collisions.left || aiMovement.collisions.right)
             turnOnNextJump = true;
+
+        if (aiMovement.collisions.touchedPlayerHorizontally)
+            player.GetComponent<Player>().HandleHit(100f);
     }
 }
