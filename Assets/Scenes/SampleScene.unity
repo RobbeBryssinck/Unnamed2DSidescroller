@@ -6103,6 +6103,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1787201413889094825, guid: 2fc79319f029e934ea751b8063ee6116,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.015644327
+      objectReference: {fileID: 0}
+    - target: {fileID: 1787201413889094825, guid: 2fc79319f029e934ea751b8063ee6116,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.6562114
+      objectReference: {fileID: 0}
     - target: {fileID: 1787201413889094826, guid: 2fc79319f029e934ea751b8063ee6116,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6443,42 +6453,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8974742763643363350, guid: b846620f263f81c49ade6cdcc52553f4,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 6246686512834900064, guid: bd4390be9abb0734ba27dc90e226eba8,
-        type: 3}
-    - target: {fileID: 8974742763643363351, guid: b846620f263f81c49ade6cdcc52553f4,
-        type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.71875
-      objectReference: {fileID: 0}
-    - target: {fileID: 8974742763643363351, guid: b846620f263f81c49ade6cdcc52553f4,
-        type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8974742763643363351, guid: b846620f263f81c49ade6cdcc52553f4,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: 0.07816458
-      objectReference: {fileID: 0}
-    - target: {fileID: 8974742763643363351, guid: b846620f263f81c49ade6cdcc52553f4,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.50016403
-      objectReference: {fileID: 0}
-    - target: {fileID: 8974742763643363351, guid: b846620f263f81c49ade6cdcc52553f4,
-        type: 3}
-      propertyPath: m_Offset.y
-      value: 0.00014105439
-      objectReference: {fileID: 0}
-    - target: {fileID: 8974742763643363351, guid: b846620f263f81c49ade6cdcc52553f4,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.9999024
       objectReference: {fileID: 0}
     - target: {fileID: 8974742763643363353, guid: b846620f263f81c49ade6cdcc52553f4,
         type: 3}

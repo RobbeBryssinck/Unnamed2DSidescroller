@@ -21,9 +21,9 @@ public class Player : MonoBehaviour
     float moveSpeed = 6;
 
     [SerializeField]
-    private Vector2 bcRight;
+    private Vector2 bcRight = new Vector2();
     [SerializeField]
-    private Vector2 bcLeft;
+    private Vector2 bcLeft = new Vector2();
 
     #endregion
 

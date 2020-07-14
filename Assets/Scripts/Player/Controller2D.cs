@@ -152,7 +152,7 @@ public class Controller2D : MonoBehaviour
                     break;
                 }
 
-                if (hit.collider.tag == "Bounce")
+                if (hit.collider.tag == "Bounce" && directionY == -1)
                     player.VelocityY = 20f;
 
                 else
