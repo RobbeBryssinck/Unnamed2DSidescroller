@@ -43,6 +43,7 @@ public class FrogMoveState : FSMState
         else if (timeBetweenJumpsLeft >= 0f && aiMovement.collisions.below)
         {
             timeBetweenJumpsLeft -= Time.deltaTime;
+            aiMovement.SimulateGravity();
         }
 
         else if (!aiMovement.collisions.below)

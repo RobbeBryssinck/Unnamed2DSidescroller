@@ -9,7 +9,9 @@ public class AIMovement : MonoBehaviour
 
     [SerializeField]
     private float moveSpeed = 2f;
+    [SerializeField]
     private float jumpHeight = 4.0f;
+    [SerializeField]
     private float timeToJumpHeight = 0.4f;
 
     public float DirectionX { get; set; } = -1f;
@@ -18,7 +20,6 @@ public class AIMovement : MonoBehaviour
     private float jumpVelocity;
 
     private Vector2 velocity;
-    private Vector2 moveDistance;
     public Collisions collisions;
 
     private void Start()
@@ -29,16 +30,14 @@ public class AIMovement : MonoBehaviour
         jumpVelocity = (2 * jumpHeight) / timeToJumpHeight;
     }
 
-    public void Move(Vector3 moveDistance)
+    public void Move(Vector2 moveDistance)
     {
-        this.moveDistance = moveDistance;
-
         rcController.UpdateRaycastOrigins();
         collisions.Reset();
 
-        CalculateHorizontalMovement();
-        CalculateVerticalMovement();
-        transform.Translate(this.moveDistance);
+        CalculateHorizontalMovement(ref moveDistance);
+        CalculateVerticalMovement(ref moveDistance);
+        transform.Translate(moveDistance);
 
         if (collisions.above || collisions.below)
             velocity.y = 0;
@@ -68,7 +67,7 @@ public class AIMovement : MonoBehaviour
     }
 
     // TODO: put destination in calculate parameters
-    private void CalculateHorizontalMovement()
+    private void CalculateHorizontalMovement(ref Vector2 moveDistance)
     {
         float rayLength = Mathf.Abs(moveDistance.x) + RaycastController.skinWidth;
 
@@ -94,7 +93,7 @@ public class AIMovement : MonoBehaviour
         }
     }
 
-    private void CalculateVerticalMovement()
+    private void CalculateVerticalMovement(ref Vector2 moveDistance)
     {
         float directionY = Mathf.Sign(moveDistance.y);
         float rayLength = Mathf.Abs(moveDistance.y) + RaycastController.skinWidth;
@@ -123,8 +122,9 @@ public class AIMovement : MonoBehaviour
         rcController.UpdateRaycastOrigins();
         collisions.Reset();
 
-        CalculateVelocity();
-        CalculateVerticalMovement();
+        velocity = CalculateVelocity();
+        Vector2 moveDistance = velocity * Time.deltaTime;
+        CalculateVerticalMovement(ref moveDistance);
         moveDistance.x = 0;
         transform.Translate(moveDistance);
 

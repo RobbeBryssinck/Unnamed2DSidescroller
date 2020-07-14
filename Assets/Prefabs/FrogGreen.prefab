@@ -113,7 +113,9 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 768
-  moveSpeed: 2
+  moveSpeed: 5
+  jumpHeight: 4
+  timeToJumpHeight: 0.4
 --- !u!61 &1787201413889094825
 BoxCollider2D:
   m_ObjectHideFlags: 0
