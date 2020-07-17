@@ -6168,6 +6168,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1787201413889094827, guid: 2fc79319f029e934ea751b8063ee6116,
+        type: 3}
+      propertyPath: timeToJumpHeight
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 1787201413889094828, guid: 2fc79319f029e934ea751b8063ee6116,
         type: 3}
       propertyPath: m_Name
@@ -6453,6 +6458,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8974742763643363351, guid: b846620f263f81c49ade6cdcc52553f4,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.015666038
+      objectReference: {fileID: 0}
+    - target: {fileID: 8974742763643363351, guid: b846620f263f81c49ade6cdcc52553f4,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.96885246
       objectReference: {fileID: 0}
     - target: {fileID: 8974742763643363353, guid: b846620f263f81c49ade6cdcc52553f4,
         type: 3}

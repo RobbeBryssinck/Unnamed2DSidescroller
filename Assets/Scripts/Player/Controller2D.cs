@@ -41,6 +41,7 @@ public class Controller2D : MonoBehaviour
             VerticalCollisions(ref moveDistance);
 
         transform.Translate(moveDistance);
+        Physics.SyncTransforms();
 
         if (standingOnPlatform == true)
             collisions.below = true;

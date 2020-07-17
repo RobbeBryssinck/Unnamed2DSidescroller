@@ -66,7 +66,6 @@ public class AIMovement : MonoBehaviour
         DirectionX = Mathf.Sign(destination.x - transform.position.x);
     }
 
-    // TODO: put destination in calculate parameters
     private void CalculateHorizontalMovement(ref Vector2 moveDistance)
     {
         float rayLength = Mathf.Abs(moveDistance.x) + RaycastController.skinWidth;

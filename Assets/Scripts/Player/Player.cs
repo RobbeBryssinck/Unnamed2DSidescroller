@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
     float maxVelocityTimeGround = .1f;
     float moveSpeed = 6;
 
+    // These fields set the offset of the player's box collider when turning
+    // Given an empty Vector2 here so the compiler stops complaining
     [SerializeField]
     private Vector2 bcRight = new Vector2();
     [SerializeField]
